@@ -1,0 +1,143 @@
+object CreateForm: TCreateForm
+  Left = 3480
+  Height = 229
+  Top = 615
+  Width = 495
+  BorderIcons = []
+  BorderStyle = bsSizeToolWin
+  Caption = 'Chronology - Create a Snapshot'
+  ClientHeight = 229
+  ClientWidth = 495
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '2.0.10.0'
+  object GroupBox1: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Panel1
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 0
+    Height = 229
+    Top = 0
+    Width = 264
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Choose a Filesystem:'
+    ClientHeight = 208
+    ClientWidth = 264
+    TabOrder = 0
+    object FileSystemListBox: TListBox
+      Left = 0
+      Height = 208
+      Top = 0
+      Width = 264
+      Align = alClient
+      ItemHeight = 0
+      OnSelectionChange = FileSystemListBoxSelectionChange
+      TabOrder = 0
+    end
+  end
+  object Panel1: TPanel
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 264
+    Height = 229
+    Top = 0
+    Width = 231
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BevelOuter = bvNone
+    ClientHeight = 229
+    ClientWidth = 231
+    TabOrder = 1
+    object CreateButton: TBitBtn
+      AnchorSideLeft.Control = Panel1
+      AnchorSideRight.Control = Panel1
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = Panel1
+      AnchorSideBottom.Side = asrBottom
+      Left = 5
+      Height = 30
+      Top = 196
+      Width = 224
+      Anchors = [akLeft, akRight, akBottom]
+      BorderSpacing.Left = 5
+      BorderSpacing.Right = 2
+      BorderSpacing.Bottom = 3
+      Caption = 'Create'
+      Default = True
+      GlyphShowMode = gsmSystem
+      Kind = bkOK
+      OnClick = CreateButtonClick
+      TabOrder = 0
+    end
+    object UsedLabel: TLabel
+      Left = 16
+      Height = 17
+      Top = 18
+      Width = 36
+      Caption = 'Used: '
+      ParentColor = False
+    end
+    object UsedData: TLabel
+      Left = 56
+      Height = 17
+      Top = 18
+      Width = 29
+      Caption = '350G'
+      ParentColor = False
+    end
+    object AvailLabel: TLabel
+      Left = 16
+      Height = 17
+      Top = 40
+      Width = 32
+      Caption = 'Avail:'
+      ParentColor = False
+    end
+    object AvailData: TLabel
+      Left = 56
+      Height = 17
+      Top = 40
+      Width = 29
+      Caption = '999G'
+      ParentColor = False
+    end
+    object ReferLabel: TLabel
+      Left = 16
+      Height = 17
+      Top = 64
+      Width = 35
+      Caption = 'Refer:'
+      ParentColor = False
+    end
+    object ReferData: TLabel
+      Left = 56
+      Height = 17
+      Top = 64
+      Width = 28
+      Caption = '343G'
+      ParentColor = False
+    end
+    object MountPointLabel: TLabel
+      Left = 16
+      Height = 17
+      Top = 88
+      Width = 72
+      Caption = 'MountPoint:'
+      ParentColor = False
+    end
+    object MountPointData: TLabel
+      Left = 16
+      Height = 17
+      Top = 104
+      Width = 154
+      Caption = '/home/lenon/Documents'
+      ParentColor = False
+    end
+  end
+end
