@@ -1,13 +1,13 @@
 object CreateForm: TCreateForm
-  Left = 3480
-  Height = 229
-  Top = 615
-  Width = 495
+  Left = 3539
+  Height = 271
+  Top = 631
+  Width = 541
   BorderIcons = []
   BorderStyle = bsSizeToolWin
   Caption = 'Chronology - Create a Snapshot'
-  ClientHeight = 229
-  ClientWidth = 495
+  ClientHeight = 271
+  ClientWidth = 541
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -20,19 +20,19 @@ object CreateForm: TCreateForm
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 0
-    Height = 229
+    Height = 271
     Top = 0
-    Width = 264
+    Width = 221
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Choose a Filesystem:'
-    ClientHeight = 208
-    ClientWidth = 264
+    ClientHeight = 250
+    ClientWidth = 221
     TabOrder = 0
     object FileSystemListBox: TListBox
       Left = 0
-      Height = 208
+      Height = 250
       Top = 0
-      Width = 264
+      Width = 221
       Align = alClient
       ItemHeight = 0
       OnSelectionChange = FileSystemListBoxSelectionChange
@@ -45,14 +45,14 @@ object CreateForm: TCreateForm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 264
-    Height = 229
+    Left = 221
+    Height = 271
     Top = 0
-    Width = 231
-    Anchors = [akTop, akLeft, akRight, akBottom]
+    Width = 320
+    Anchors = [akTop, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 229
-    ClientWidth = 231
+    ClientHeight = 271
+    ClientWidth = 320
     TabOrder = 1
     object CreateButton: TBitBtn
       AnchorSideLeft.Control = Panel1
@@ -60,16 +60,15 @@ object CreateForm: TCreateForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = Panel1
       AnchorSideBottom.Side = asrBottom
-      Left = 5
+      Left = 211
       Height = 30
-      Top = 196
-      Width = 224
-      Anchors = [akLeft, akRight, akBottom]
+      Top = 238
+      Width = 107
+      Anchors = [akRight, akBottom]
       BorderSpacing.Left = 5
       BorderSpacing.Right = 2
       BorderSpacing.Bottom = 3
       Caption = 'Create'
-      Default = True
       GlyphShowMode = gsmSystem
       Kind = bkOK
       OnClick = CreateButtonClick
@@ -138,6 +137,25 @@ object CreateForm: TCreateForm
       Width = 154
       Caption = '/home/lenon/Documents'
       ParentColor = False
+    end
+    object CancelButton: TBitBtn
+      AnchorSideRight.Control = CreateButton
+      AnchorSideBottom.Control = Panel1
+      AnchorSideBottom.Side = asrBottom
+      Left = 99
+      Height = 30
+      Top = 238
+      Width = 107
+      Anchors = [akRight, akBottom]
+      BorderSpacing.Left = 5
+      BorderSpacing.Right = 2
+      BorderSpacing.Bottom = 3
+      Cancel = True
+      DefaultCaption = True
+      Kind = bkCancel
+      ModalResult = 2
+      OnClick = CancelButtonClick
+      TabOrder = 1
     end
   end
 end

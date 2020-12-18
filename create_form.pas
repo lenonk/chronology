@@ -13,6 +13,7 @@ type
   { TCreateForm }
 
   TCreateForm = class(TForm)
+    CancelButton: TBitBtn;
     CreateButton: TBitBtn;
     GroupBox1: TGroupBox;
     FileSystemListBox: TListBox;
@@ -25,6 +26,7 @@ type
     Panel1: TPanel;
     AvailLabel: TLabel;
     ReferLabel: TLabel;
+    procedure CancelButtonClick(Sender: TObject);
     procedure CreateButtonClick(Sender: TObject);
     procedure FileSystemListBoxSelectionChange(Sender: TObject; User: boolean);
     procedure FormCreate(Sender: TObject);
@@ -106,7 +108,7 @@ end;
 
 procedure TCreateForm.CreateButtonClick(Sender: TObject);
 var
-  Output, SSName: ansistring;
+  Output, SSName, Message: ansistring;
   Reply, BoxStyle: Integer;
 begin
     ModalResult := mrNone;
@@ -115,8 +117,10 @@ begin
            FormatDateTime('YYYY-MM-DD-HH.NN.AM/PM', Now);
 
     BoxStyle := MB_ICONQUESTION + MB_YESNO;
-    Reply := Application.MessageBox('Are you sure you want to create a new ' +
-                    'snapshot?', 'Create a New Snapshot?', BoxStyle);
+    Message := 'Are you sure you wish to create a new snapsot of ' +
+                FileSystemListBox.GetSelectedText() + '?';
+
+    Reply := Application.MessageBox(PChar(Message), 'Create a New Snapshot?', BoxStyle);
 
     if (Reply <> IDYES) then Exit();
 
@@ -129,6 +133,11 @@ begin
         if (Length(Output) <> 0) then ShowMessage(Output)
         else ShowMessage('Creating snapshot failed. Please make sure the ZFS tools are in your path.');
     end;
+end;
+
+procedure TCreateForm.CancelButtonClick(Sender: TObject);
+begin
+  Close();
 end;
 
 procedure DataMapCallBack(Item: TObject; const Key: string; var Continue: Boolean);
