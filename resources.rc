@@ -1,0 +1,4 @@
+ShieldError         RCDATA "shield-error-icon.png"
+ShieldIcon          RCDATA "shield-icon.png"
+ShieldOk            RCDATA "shield-ok-icon.png"
+ShieldWarning       RCDATA "shield-warning-icon.png"

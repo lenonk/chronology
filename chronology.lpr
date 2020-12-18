@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main_form, create_form, SysUtils, LCLType, about_form
+  Forms, main_form, create_form, SysUtils, LCLType, lazcontrols, about_form,
+  settings_form
   { you can add units after this };
 
 {$R *.res}
@@ -32,6 +33,7 @@ begin
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TCreateForm, CreateForm);
   Application.CreateForm(TAboutForm, AboutForm);
+  Application.CreateForm(TSettingsForm, SettingsForm);
   Application.Run;
 end.
 

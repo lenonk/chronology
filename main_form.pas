@@ -1,6 +1,7 @@
 unit main_form;
 
 {$mode objfpc}{$H+}
+{$R resources.rc}
 //{$L libzfs.so}
 
 interface
@@ -8,7 +9,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
   Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, create_form, LCLType,
-  FileUtil, about_form;
+  FileUtil, about_form, settings_form;
 
 type
   libzfs_handle_p = pointer;
@@ -56,11 +57,11 @@ type
     procedure DeleteButtonClick(Sender: TObject);
     procedure DeleteMenuItemClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure MenuButtonClick(Sender: TObject);
     procedure RestoreButtonClick(Sender: TObject);
     procedure RestoreMenuItemClick(Sender: TObject);
+    procedure SettingsButtonClick(Sender: TObject);
     procedure SnapshotListMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Timer1Timer(Sender: TObject);
@@ -249,6 +250,13 @@ begin
   RestoreButtonClick(Sender);
 end;
 
+procedure TMainForm.SettingsButtonClick(Sender: TObject);
+begin
+  SettingsForm.Top := MainForm.Top + Round((MainForm.Height - SettingsForm.Height) / 2);
+  SettingsForm.Left := MainForm.Left + Round((MainForm.Width - SettingsForm.Width) / 2);
+  SettingsForm.ShowModal();
+end;
+
 procedure TMainForm.SnapshotListMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
@@ -300,11 +308,6 @@ begin
   end;
 
   NumSnapshotsLabel.Caption := IntToStr(SnapshotList.RowCount - 1);
-end;
-
-procedure TMainForm.FormDestroy(Sender: TObject);
-begin
-
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
