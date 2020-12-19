@@ -1,7 +1,7 @@
 object AboutForm: TAboutForm
-  Left = 3542
+  Left = 3745
   Height = 359
-  Top = 841
+  Top = 258
   Width = 373
   Caption = 'About Chronology'
   ClientHeight = 359
@@ -223,31 +223,6 @@ object AboutForm: TAboutForm
     Caption = 'ZFS Snapshot Management Utiliity'
     ParentColor = False
   end
-  object LicenseButton: TButton
-    Left = 49
-    Height = 25
-    Top = 296
-    Width = 75
-    Caption = 'License'
-    TabOrder = 0
-  end
-  object CreditsButton: TButton
-    Left = 149
-    Height = 25
-    Top = 296
-    Width = 75
-    Caption = 'Credits'
-    TabOrder = 1
-  end
-  object CloseButton: TButton
-    Left = 249
-    Height = 25
-    Top = 296
-    Width = 75
-    Caption = 'Close'
-    OnClick = CloseButtonClick
-    TabOrder = 2
-  end
   object Label4: TLabel
     Cursor = crHandPoint
     Left = 70
@@ -261,5 +236,34 @@ object AboutForm: TAboutForm
     ParentColor = False
     ParentFont = False
     OnClick = Label4Click
+  end
+  object CloseButton: TBitBtn
+    Left = 249
+    Height = 25
+    Top = 296
+    Width = 75
+    DefaultCaption = True
+    Kind = bkClose
+    ModalResult = 11
+    OnClick = CloseButtonClick
+    TabOrder = 0
+  end
+  object CreditsButton: TBitBtn
+    Left = 149
+    Height = 25
+    Top = 296
+    Width = 75
+    Caption = 'Credits'
+    OnClick = CreditsButtonClick
+    TabOrder = 1
+  end
+  object LicenseButton: TBitBtn
+    Left = 49
+    Height = 25
+    Top = 296
+    Width = 75
+    Caption = 'License'
+    OnClick = LicenseButtonClick
+    TabOrder = 2
   end
 end

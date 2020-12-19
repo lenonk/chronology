@@ -1,7 +1,7 @@
 object SettingsForm: TSettingsForm
   Left = 3552
   Height = 630
-  Top = 456
+  Top = 488
   Width = 485
   Caption = 'Chronology Settings'
   ClientHeight = 630
@@ -12,6 +12,7 @@ object SettingsForm: TSettingsForm
   Constraints.MinWidth = 485
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   LCLVersion = '2.0.10.0'
   object Panel1: TPanel
     AnchorSideLeft.Control = Owner
@@ -101,6 +102,7 @@ object SettingsForm: TSettingsForm
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
+        OnChange = MonthlyCheckboxChange
         ParentFont = False
         TabOrder = 0
       end
@@ -144,6 +146,7 @@ object SettingsForm: TSettingsForm
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
+        OnChange = WeeklyCheckboxChange
         ParentFont = False
         TabOrder = 3
       end
@@ -157,6 +160,7 @@ object SettingsForm: TSettingsForm
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
+        OnChange = DailyCheckboxChange
         ParentFont = False
         TabOrder = 4
       end
@@ -170,6 +174,7 @@ object SettingsForm: TSettingsForm
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
+        OnChange = HourlyCheckboxChange
         ParentFont = False
         TabOrder = 5
       end
@@ -183,10 +188,11 @@ object SettingsForm: TSettingsForm
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
+        OnChange = BootCheckboxChange
         ParentFont = False
         TabOrder = 6
       end
-      object StopEmailCheckox: TCheckBox
+      object StopEmailCheckbox: TCheckBox
         Left = 24
         Height = 26
         Top = 272
@@ -834,9 +840,9 @@ object SettingsForm: TSettingsForm
           ParentColor = False
           ParentFont = False
         end
-        object LatestSnapsot: TLabel
+        object IntervalLabel: TLabel
           Left = 96
-          Height = 25
+          Height = 41
           Top = 40
           Width = 296
           AutoSize = False
@@ -846,6 +852,7 @@ object SettingsForm: TSettingsForm
           Font.Style = [fsItalic]
           ParentColor = False
           ParentFont = False
+          WordWrap = True
         end
       end
       object Panel3: TPanel

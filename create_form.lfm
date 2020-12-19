@@ -1,7 +1,7 @@
 object CreateForm: TCreateForm
-  Left = 3539
+  Left = 3558
   Height = 271
-  Top = 631
+  Top = 502
   Width = 541
   BorderIcons = []
   BorderStyle = bsSizeToolWin
@@ -60,10 +60,10 @@ object CreateForm: TCreateForm
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = Panel1
       AnchorSideBottom.Side = asrBottom
-      Left = 211
-      Height = 30
-      Top = 238
-      Width = 107
+      Left = 243
+      Height = 25
+      Top = 243
+      Width = 75
       Anchors = [akRight, akBottom]
       BorderSpacing.Left = 5
       BorderSpacing.Right = 2
@@ -142,10 +142,10 @@ object CreateForm: TCreateForm
       AnchorSideRight.Control = CreateButton
       AnchorSideBottom.Control = Panel1
       AnchorSideBottom.Side = asrBottom
-      Left = 99
-      Height = 30
-      Top = 238
-      Width = 107
+      Left = 163
+      Height = 25
+      Top = 243
+      Width = 75
       Anchors = [akRight, akBottom]
       BorderSpacing.Left = 5
       BorderSpacing.Right = 2

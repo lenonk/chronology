@@ -13,6 +13,19 @@
         <DpiAware Value="True"/>
       </XPManifest>
       <Icon Value="0"/>
+      <Resources Count="11">
+        <Resource_0 FileName="icons/chronology_black_16x16.png" Type="RCDATA" ResourceName="CHRONOLOGY_BLACK_16X16"/>
+        <Resource_1 FileName="icons/chronology_black_24x24.png" Type="RCDATA" ResourceName="CHRONOLOGY_BLACK_24X24"/>
+        <Resource_2 FileName="icons/chronology_black_32x32.png" Type="RCDATA" ResourceName="CHRONOLOGY_BLACK_32X32"/>
+        <Resource_3 FileName="icons/chronology_white_16x16.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_16X16"/>
+        <Resource_4 FileName="icons/chronology_white_24x24.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_24X24"/>
+        <Resource_5 FileName="icons/chronology_white_32x32.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_32X32"/>
+        <Resource_6 FileName="icons/chronology_white_128x128.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_128X128"/>
+        <Resource_7 FileName="icons/shield-error-icon.png" Type="RCDATA" ResourceName="SHIELD-ERROR-ICON"/>
+        <Resource_8 FileName="icons/shield-icon.png" Type="RCDATA" ResourceName="SHIELD-ICON"/>
+        <Resource_9 FileName="icons/shield-ok-icon.png" Type="RCDATA" ResourceName="SHIELD-OK-ICON"/>
+        <Resource_10 FileName="icons/shield-warning-icon.png" Type="RCDATA" ResourceName="SHIELD-WARNING-ICON"/>
+      </Resources>
     </General>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -25,18 +38,21 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="lazrichview"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LazControls"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="8">
       <Unit0>
         <Filename Value="chronology.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -69,6 +85,25 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="license_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="LicenseForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="chronoutility.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ChronoUtility"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="credits_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CreditsForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

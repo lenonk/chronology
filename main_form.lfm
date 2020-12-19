@@ -1,11 +1,11 @@
 object MainForm: TMainForm
   Left = 3552
-  Height = 369
+  Height = 401
   Top = 55
-  Width = 664
+  Width = 618
   Caption = 'Chronology'
-  ClientHeight = 369
-  ClientWidth = 664
+  ClientHeight = 401
+  ClientWidth = 618
   Constraints.MinHeight = 290
   Constraints.MinWidth = 560
   Icon.Data = {
@@ -2136,11 +2136,11 @@ object MainForm: TMainForm
     Left = 0
     Height = 66
     Top = 0
-    Width = 664
+    Width = 618
     Anchors = [akTop, akLeft, akRight]
     BevelOuter = bvNone
     ClientHeight = 66
-    ClientWidth = 664
+    ClientWidth = 618
     TabOrder = 2
     object CreateButton: TBitBtn
       Left = 5
@@ -2201,37 +2201,47 @@ object MainForm: TMainForm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Panel2
     Left = 5
-    Height = 206
+    Height = 238
     Top = 71
-    Width = 654
+    Width = 608
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 5
     BevelOuter = bvNone
     Caption = 'Panel1'
-    ClientHeight = 206
-    ClientWidth = 654
+    ClientHeight = 238
+    ClientWidth = 608
     TabOrder = 0
     object SnapshotList: TStringGrid
+      AnchorSideRight.Control = Panel1
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = Panel1
+      AnchorSideBottom.Side = asrBottom
       Left = 0
-      Height = 206
+      Height = 238
       Top = 0
-      Width = 654
+      Width = 608
       Align = alClient
       AlternateColor = clBackground
       AutoEdit = False
-      ColCount = 3
+      AutoFillColumns = True
+      ColCount = 4
       Columns = <      
         item
+          Title.Caption = 'Pool'
+          Width = 151
+        end      
+        item
           Title.Caption = 'Snapshot'
-          Width = 400
+          Width = 151
         end      
         item
           Title.Caption = 'Size'
-          Width = 100
+          Width = 151
         end      
         item
+          Layout = tlCenter
           Title.Caption = 'References'
-          Width = 100
+          Width = 153
         end>
       DefaultRowHeight = 32
       ExtendedSelect = False
@@ -2242,6 +2252,12 @@ object MainForm: TMainForm
       TabOrder = 0
       TitleStyle = tsNative
       OnMouseDown = SnapshotListMouseDown
+      ColWidths = (
+        151
+        151
+        151
+        153
+      )
     end
   end
   object Panel2: TPanel
@@ -2253,20 +2269,20 @@ object MainForm: TMainForm
     AnchorSideBottom.Side = asrBottom
     Left = 5
     Height = 82
-    Top = 282
-    Width = 654
+    Top = 314
+    Width = 608
     Anchors = [akLeft, akRight, akBottom]
     BorderSpacing.Around = 5
     BevelOuter = bvNone
     ClientHeight = 82
-    ClientWidth = 654
+    ClientWidth = 608
     TabOrder = 1
     object Panel4: TPanel
       AnchorSideRight.Control = Panel2
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = Panel2
       AnchorSideBottom.Side = asrBottom
-      Left = 572
+      Left = 526
       Height = 78
       Top = 4
       Width = 82
@@ -2277,7 +2293,7 @@ object MainForm: TMainForm
       AnchorSideRight.Control = Panel4
       AnchorSideBottom.Control = Panel2
       AnchorSideBottom.Side = asrBottom
-      Left = 484
+      Left = 438
       Height = 78
       Top = 4
       Width = 82
@@ -2312,7 +2328,7 @@ object MainForm: TMainForm
       AnchorSideTop.Control = Panel2
       AnchorSideBottom.Control = Panel2
       AnchorSideBottom.Side = asrBottom
-      Left = 0
+      Left = -2
       Height = 70
       Top = 5
       Width = 72
@@ -2903,7 +2919,7 @@ object MainForm: TMainForm
   object MenuButton: TBitBtn
     AnchorSideRight.Control = Panel3
     AnchorSideRight.Side = asrBottom
-    Left = 589
+    Left = 543
     Height = 58
     Top = 4
     Width = 70
@@ -2926,6 +2942,7 @@ object MainForm: TMainForm
     Visible = False
   end
   object Timer1: TTimer
+    Interval = 500
     OnTimer = Timer1Timer
     Left = 528
     Top = 528
@@ -3097,6 +3114,7 @@ object MainForm: TMainForm
     end
     object ConfigureItem: TMenuItem
       Caption = 'Configure Chronology'
+      OnClick = ConfigureItemClick
     end
   end
   object SnapshotsPopup: TPopupMenu

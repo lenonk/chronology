@@ -1,7 +1,7 @@
 unit main_form;
 
 {$mode objfpc}{$H+}
-{$R resources.rc}
+
 //{$L libzfs.so}
 
 interface
@@ -9,7 +9,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
   Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, create_form, LCLType,
-  FileUtil, about_form, settings_form;
+  FileUtil, about_form, settings_form, JSonTools, ChronoUtility;
 
 type
   libzfs_handle_p = pointer;
@@ -53,6 +53,7 @@ type
     procedure AboutItemClick(Sender: TObject);
     procedure BrowseButtonClick(Sender: TObject);
     procedure BrowseMenuItemClick(Sender: TObject);
+    procedure ConfigureItemClick(Sender: TObject);
     procedure CreateButtonClick(Sender: TObject);
     procedure DeleteButtonClick(Sender: TObject);
     procedure DeleteMenuItemClick(Sender: TObject);
@@ -66,8 +67,10 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure Timer1Timer(Sender: TObject);
     procedure TrayIcon1Click(Sender: TObject);
-    procedure UpdateSnapshots();
+
   private
+    procedure UpdateSnapshots();
+    function GetSnapshotName(): ansistring;
 
   public
 
@@ -82,33 +85,10 @@ implementation
 
 { TMainForm }
 
-
-procedure AddIconToButton(Name: WideString; var Button: TBitBtn);
-var
-  AIcon: QIconH;
-  BIcon: QIconH;
-  IconName: pwidestring;
-  ASize: TSize;
-  APixmap: QPixmapH;
+function TMainForm.GetSnapshotName(): ansistring;
 begin
-  New(IconName);
-  AIcon := QIcon_create();
-  BIcon := QIcon_create();
-  APixmap := QPixmap_create();
-  ASize.cx := 24;
-  ASize.cy := 24;
-
-  IconName^ := Name;
-  QIcon_fromTheme(AIcon, IconName, nil); // Add fallback
-  QIcon_pixmap(AIcon, APixmap, PSize(@ASize));
-  QIcon_addPixmap(BIcon, APixmap, QIconNormal, QIconOn);
-  TQTBitBtn(Button.Handle).setIconSize(@ASize);
-  TQTBitBtn(Button.Handle).setIcon(BIcon);
-
-  QIcon_destroy(AIcon);
-  QIcon_destroy(BIcon);
-  QPixmap_destroy(APixmap);
-  Dispose(IconName);
+  GetSnapshotName := SnapshotList.Rows[SnapshotList.Row][0] + '@' +
+                     SnapshotList.Rows[SnapshotList.Row][1];
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -126,7 +106,7 @@ var
   Output, SSName, UName, DirName: ansistring;
   GUID: TGUID;
 begin
-  SSName := SnapshotList.Rows[SnapshotList.Row][0];
+  SSName := GetSnapshotName();
   UName := GetEnvironmentVariable('USER');
   CreateGuid(GUID);
   DirName := '/run/media/' + UName + '/' + GUID.ToString(True);
@@ -175,6 +155,11 @@ begin
   BrowseButtonClick(Sender);
 end;
 
+procedure TMainForm.ConfigureItemClick(Sender: TObject);
+begin
+  SettingsButton.Click();
+end;
+
 procedure TMainForm.AboutItemClick(Sender: TObject);
 begin
   AboutForm.Top := MainForm.Top + Round((MainForm.Height - AboutForm.Height) / 2);
@@ -187,7 +172,7 @@ var
   Output, SSName, Message: ansistring;
   Reply, BoxStyle: integer;
 begin
-  SSName := SnapshotList.Rows[SnapshotList.Row][0];
+  SSName := GetSnapshotName();
 
   BoxStyle := MB_ICONQUESTION + MB_YESNO;
   Message := 'Are you sure you wish to delete ' + SSName + '?';
@@ -221,7 +206,7 @@ var
   Output, SSName, Message: ansistring;
   Reply, BoxStyle: integer;
 begin
-  SSName := SnapshotList.Rows[SnapshotList.Row][0];
+  SSName := GetSnapshotName();
 
   BoxStyle := MB_ICONQUESTION + MB_YESNO;
   Message := 'Are you sure you wish to restore ' + SSName + '?';
@@ -274,7 +259,6 @@ var
   Output: ansistring;
   a, b: TStringArray;
   i: integer;
-  ss, size, ref: string;
 begin
 
   for i := SnapshotList.RowCount - 1 downto 1 do
@@ -292,11 +276,8 @@ begin
     a := Output.Split(AnsiChar(#10));
     for i := 1 to Length(a) - 2 do
     begin
-      b := a[i].Split(' ', TStringSplitOptions.ExcludeEmpty);
-      ss := b[0];
-      size := b[1];
-      ref := b[3];
-      SnapshotList.InsertRowWithValues(i, [ss, size, ref]);
+      b := a[i].Split(' @', TStringSplitOptions.ExcludeEmpty);
+      SnapshotList.InsertRowWithValues(i, [b[0], b[1], b[2], b[4]]);
     end;
   end
   else
@@ -337,6 +318,7 @@ end;
 procedure TMainForm.Timer1Timer(Sender: TObject);
 var
   CurrentRow: integer;
+  Config: TJsonNode;
 begin
   CurrentRow := SnapshotList.Row;
   UpdateSnapshots();
@@ -344,6 +326,30 @@ begin
     SnapshotList.Row := CurrentRow
   else
     SnapshotList.Row := 1;
+
+  if (SettingsForm = nil) then
+    Exit();
+
+  if (not FileExists(SettingsForm.ConfigDir + SettingsForm.ConfigFile)) then
+    Exit();
+
+  Config := TJsonNode.Create();
+  Config.LoadFromFile(SettingsForm.ConfigDir + SettingsForm.ConfigFile);
+
+  if ((Config.Find('monthly/enabled').Value.ToBoolean() = False)
+      and (Config.Find('weekly/enabled').Value.ToBoolean() = False)
+      and (Config.Find('daily/enabled').Value.ToBoolean() = False)
+      and (Config.Find('hourly/enabled').Value.ToBoolean() = False)
+      and (Config.Find('boot/enabled').Value.ToBoolean() = False)) then begin
+    ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
+    ActiveLabel.Caption := 'No Snapshots are scheduled';
+  end
+  else begin
+    ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-OK-ICON');
+    ActiveLabel.Caption := 'Chronology is active';
+  end;
+
+  Config.Free();
 end;
 
 procedure TMainForm.TrayIcon1Click(Sender: TObject);
