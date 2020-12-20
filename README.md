@@ -1,7 +1,9 @@
 # chronology
 Snapshot manager for ZFS
 
-This is a work in progress project I whipped up in Lazarus to manage ZFS snapshots.
+# Note
+This is a work in progress project I whipped up in Lazarus to manage ZFS snapshots.<br>
+I'm getting a surprising number of cloners on this project.  Please be aware that currently it probably only works on KDE, and definitely only works on Linux.  It requires Dolphin to be installed, since xdg-open was giving me some issues, and it's hardcoded to mount snapshots in /run/media.  Given the suprising response, I'll put some more time into it than I had planned and try to iron out some of the wrinkles.  If you're looking for something like this and Chronology doesn't currently work for you, keep checking back.
 
 # What works so far:
 Creating snapshots<br>
@@ -14,7 +16,7 @@ All settings functional and saved in config file<br>
 Creating cron jobs for running scheduled snapshots<br>
 
 # The Good:
-Goals are ebing accomplished, and it's pretty.<br>
+Goals are being accomplished, and it's pretty.<br>
 
 # The Bad:
 I haven't used pascal in 20 years, and it's slow progress.<br>
