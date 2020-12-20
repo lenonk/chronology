@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="11"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="chronology"/>
+      <Scaled Value="True"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
+      <Icon Value="0"/>
+      <Resources Count="11">
+        <Resource_0 FileName="../icons/chronology_black_16x16.png" Type="RCDATA" ResourceName="CHRONOLOGY_BLACK_16X16"/>
+        <Resource_1 FileName="../icons/chronology_black_24x24.png" Type="RCDATA" ResourceName="CHRONOLOGY_BLACK_24X24"/>
+        <Resource_2 FileName="../icons/chronology_black_32x32.png" Type="RCDATA" ResourceName="CHRONOLOGY_BLACK_32X32"/>
+        <Resource_3 FileName="../icons/chronology_white_16x16.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_16X16"/>
+        <Resource_4 FileName="../icons/chronology_white_24x24.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_24X24"/>
+        <Resource_5 FileName="../icons/chronology_white_32x32.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_32X32"/>
+        <Resource_6 FileName="../icons/chronology_white_128x128.png" Type="RCDATA" ResourceName="CHRONOLOGY_WHITE_128X128"/>
+        <Resource_7 FileName="../icons/shield-error-icon.png" Type="RCDATA" ResourceName="SHIELD-ERROR-ICON"/>
+        <Resource_8 FileName="../icons/shield-icon.png" Type="RCDATA" ResourceName="SHIELD-ICON"/>
+        <Resource_9 FileName="../icons/shield-ok-icon.png" Type="RCDATA" ResourceName="SHIELD-OK-ICON"/>
+        <Resource_10 FileName="../icons/shield-warning-icon.png" Type="RCDATA" ResourceName="SHIELD-WARNING-ICON"/>
+      </Resources>
+    </General>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0"/>
+    </RunParams>
+    <RequiredPackages Count="4">
+      <Item1>
+        <PackageName Value="lazrichview"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LazControls"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+    </RequiredPackages>
+    <Units Count="9">
+      <Unit0>
+        <Filename Value="chronology.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="main_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="create_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CreateForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="about_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AboutForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="settings_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SettingsForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="license_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="LicenseForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="chronoutility.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ChronoUtility"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="credits_form.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CreditsForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="chronoscheduler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ChronoScheduler"/>
+      </Unit8>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="chronology"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <Libraries Value="/usr/lib/"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf3"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
