@@ -1,5 +1,5 @@
 object MainForm: TMainForm
-  Left = 3552
+  Left = 3749
   Height = 401
   Top = 55
   Width = 618
@@ -2227,7 +2227,7 @@ object MainForm: TMainForm
       ColCount = 4
       Columns = <      
         item
-          Title.Caption = 'Pool'
+          Title.Caption = 'Dataset'
           Width = 151
         end      
         item
@@ -2239,7 +2239,6 @@ object MainForm: TMainForm
           Width = 151
         end      
         item
-          Layout = tlCenter
           Title.Caption = 'References'
           Width = 153
         end>

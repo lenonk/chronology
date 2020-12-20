@@ -8,7 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, main_form, create_form, SysUtils, LCLType, lazrichview, lazcontrols,
-  about_form, settings_form, license_form, ChronoUtility, credits_form
+  about_form, settings_form, license_form, ChronoUtility, credits_form,
+  ChronoScheduler
   { you can add units after this };
 
 {$R *.res}
@@ -16,6 +17,7 @@ uses
 var
   UName, Message: ansistring;
   BoxStyle: integer;
+  Scheduler: TScheduler;
 
 begin
   RequireDerivedFormResource:=True;
@@ -30,6 +32,13 @@ begin
     Application.MessageBox(PChar(Message), 'Admin Access Required', BoxStyle);
     Application.Terminate();
   end;}
+
+  if (Application.HasOption('s', 'scheduler')) then begin
+    writeln('Running in scheduler mode.');
+    Scheduler.Run();
+    Application.Terminate();
+  end;
+
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TCreateForm, CreateForm);
   Application.CreateForm(TAboutForm, AboutForm);

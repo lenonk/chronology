@@ -1,7 +1,7 @@
 object CreateForm: TCreateForm
-  Left = 3558
+  Left = 3749
   Height = 271
-  Top = 502
+  Top = 488
   Width = 541
   BorderIcons = []
   BorderStyle = bsSizeToolWin

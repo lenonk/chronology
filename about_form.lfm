@@ -232,7 +232,7 @@ object AboutForm: TAboutForm
     Caption = 'https://github.com/lenonk/chronology'
     Font.Height = -13
     Font.Name = 'Fira Sans'
-    Font.Style = [fsBold, fsItalic]
+    Font.Style = [fsBold, fsItalic, fsUnderline]
     ParentColor = False
     ParentFont = False
     OnClick = Label4Click

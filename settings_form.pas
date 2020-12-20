@@ -6,23 +6,35 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, ExtCtrls,
-  Buttons, StdCtrls, Spin, JsonTools, LCLType, SpinEx;
+  Buttons, StdCtrls, Spin, JsonTools, LCLType, SpinEx, ChronoUtility;
 
 type
 
   { TSettingsForm }
 
   TSettingsForm = class(TForm)
-    ActiveLabel: TLabel;
+    ScheduleActiveLabel: TLabel;
+    DatasetActiveLabel: TLabel;
     CenterLabel: TLabel;
+    DatasetsCheckGroup: TCheckGroup;
+    DatasetIntervalLabel: TLabel;
+    Label10: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
-    IntervalLabel: TLabel;
+    ScheduleIntervalLabel: TLabel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    DatasetPage: TPage;
+    DatasetButton: TButton;
     Panel2: TPanel;
     Panel3: TPanel;
     SettingsOkButton: TBitBtn;
     MonthlyCheckbox: TCheckBox;
+    DatasetShieldImage: TImage;
     WeeklyCheckbox: TCheckBox;
     DailyCheckbox: TCheckBox;
     HourlyCheckbox: TCheckBox;
@@ -45,8 +57,9 @@ type
     ScheduleButton: TButton;
     MiscButton: TButton;
     Panel1: TPanel;
-    ShieldImage: TImage;
+    ScheduleShieldImage: TImage;
     procedure BootCheckboxChange(Sender: TObject);
+    procedure DatasetsCheckGroupItemClick(Sender: TObject; Index: integer);
     procedure DailyCheckboxChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -54,6 +67,7 @@ type
     procedure HourlyCheckboxChange(Sender: TObject);
     procedure MiscButtonClick(Sender: TObject);
     procedure MonthlyCheckboxChange(Sender: TObject);
+    procedure DatasetButtonClick(Sender: TObject);
     procedure ScheduleButtonClick(Sender: TObject);
     procedure SettingsOkButtonClick(Sender: TObject);
     procedure WeeklyCheckboxChange(Sender: TObject);
@@ -78,25 +92,51 @@ implementation
 
 procedure TSettingsForm.UpdateShieldIcon();
 var
-  State: Boolean;
+  ScheduleState, DatasetState: Boolean;
+  i: Integer;
 begin
-  State := True;
+
+  ScheduleState := True;
   if ((not MonthlyCheckbox.Checked)
       and (not WeeklyCheckbox.Checked)
       and (not DailyCheckbox.Checked)
       and (not HourlyCheckbox.Checked)
-      and (not BootCheckbox.Checked)) then State := false;
+      and (not BootCheckbox.Checked)) then ScheduleState := false;
 
-  if (State = true) then begin
-    ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-OK-ICON');
-    ActiveLabel.Caption := 'Scheduled snapshots are enabled';
-    IntervalLabel.Caption := 'Snapshots will be created at selected ' +
+  DatasetState := False;
+  for i := 0 to DatasetsCheckgroup.Items.Count - 1 do begin
+    if (DatasetsCheckgroup.Checked[i]) then DatasetState := True;
+  end;
+
+  if (DatasetState = False) then begin
+    ScheduleShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
+    ScheduleActiveLabel.Caption := 'No datasets are selected';
+    ScheduleIntervalLabel.Caption := 'Select the datasets to snapshot';
+
+    DatasetShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
+    DatasetActiveLabel.Caption := 'No datasets are selected';
+    DatasetIntervalLabel.Caption := 'Select the datasets to snapshot';
+
+  end
+  else if (ScheduleState = True) then begin
+    ScheduleShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-OK-ICON');
+    ScheduleActiveLabel.Caption := 'Scheduled snapshots are enabled';
+    ScheduleIntervalLabel.Caption := 'Snapshots will be created at selected ' +
+                             'intervals if disk space allows';
+
+    DatasetShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-OK-ICON');
+    DatasetActiveLabel.Caption := 'Scheduled snapshots are enabled';
+    DatasetIntervalLabel.Caption := 'Snapshots will be created at selected ' +
                              'intervals if disk space allows';
   end
   else begin
-      ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
-      ActiveLabel.Caption := 'Scheduled snapshots are disabled';
-      IntervalLabel.Caption := 'Select the intervals for creating snapshots';
+    ScheduleShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
+    ScheduleActiveLabel.Caption := 'Scheduled snapshots are disabled';
+    ScheduleIntervalLabel.Caption := 'Select the intervals for creating snapshots';
+
+    DatasetShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
+    DatasetActiveLabel.Caption := 'Scheduled snapshots are disabled';
+    DatasetIntervalLabel.Caption := 'Select the intervals for creating snapshots';
   end;
 end;
 
@@ -126,10 +166,16 @@ begin
   UpdateShieldIcon();
 end;
 
+procedure TSettingsForm.DatasetButtonClick(Sender: TObject);
+begin
+  SettingsNotebook.PageIndex := 2;
+end;
+
 procedure TSettingsForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 var
   Config, Node: TJsonNode;
-
+  i, DatasetCount: Integer;
+  DatasetName: ansistring;
 begin
   if (not DirectoryExists(ConfigDir)) then begin
     if (not ForceDirectories(ConfigDir)) then begin
@@ -202,6 +248,23 @@ begin
       Node.Find('keep').Value := BootEdit.Value.ToString();
   end;
 
+  Node := Config.Find('datasets');
+  if (Node = nil) then Node := Config.Add('datasets');
+
+  DatasetCount := 0;
+  for i := 0 to DatasetsCheckGroup.Items.Count - 1 do begin
+    DatasetName := DatasetsCheckGroup.Items[i];
+    if (DatasetsCheckGroup.Checked[i]) then begin
+      Inc(DatasetCount);
+      Node.Add(DatasetName); // TJsonTools will handle pre-existing
+    end
+    else begin
+      Node.Delete(DatasetName);
+    end;
+  end;
+
+  Node.Add('count', DatasetCount);
+
   Config.SaveToFile(ConfigDir + ConfigFile);
   Config.Free();
 end;
@@ -216,47 +279,22 @@ begin
     UpdateShieldIcon();
 end;
 
-procedure TSettingsForm.FormCreate(Sender: TObject);
-var
-  UID, UserName: ansistring;
-  NumRead: Word;
-  Buf: ansistring;
-  Passwd: TextFile;
-  A: TStringArray;
-
+procedure TSettingsForm.DatasetsCheckGroupItemClick(Sender: TObject; Index: integer);
 begin
-  UserName := '';
-  UID := GetEnvironmentVariable('PKEXEC_UID');
+  UpdateShieldIcon();
+end;
 
-  if (UID = '') then
-     UserName := GetEnvironmentVariable('USER')
-  else begin
-    System.Assign(Passwd, '/etc/passwd');
-    Reset(Passwd);
-    while not EoF(Passwd) do begin
-      Readln(Passwd, Buf);
-        A := Buf.Split(':');
-        if (A[2] = UID) then begin
-          UserName := A[0];
-          Break;
-        end;
-    end;
-    CloseFile(Passwd);
-  end;
-
-  if (UserName = '') then begin
-     Application.MessageBox('Unable to find user name.  Aborting',
-                                    'Chronology - Error', MB_ICONERROR + MB_OK);
+procedure TSettingsForm.FormCreate(Sender: TObject);
+begin
+  if (not GetConfigLocation(ConfigDir, ConfigFile)) then begin
      Close();
   end;
-
-  ConfigDir := '/home/' + UserName + '/.config/chronology/';
-  ConfigFile := 'settings.json';
 end;
 
 procedure TSettingsForm.FormShow(Sender: TObject);
 var
   Config, Node: TJsonNode;
+  i, idx: Integer;
 
 begin
   if (not FileExists(ConfigDir + ConfigFile)) then
@@ -305,8 +343,17 @@ begin
     BootEdit.Value := Node.Find('keep').Value.ToInteger();
   end;
 
-  Config.Free();
+  Node := Config.Find('datasets');
+  if (Node <> nil) then begin
+    for i := 0 to Node.Count - 1 do begin
+      if (Node.Child(i).Name = 'count') then continue;
+      idx := DatasetsCheckGroup.Items.IndexOf(Node.Child(i).Name);
+      if (idx >= 0) then
+        DatasetsCheckGroup.Checked[idx] := true;
+    end;
+  end;
 
+  Config.Free();
   UpdateShieldIcon();
 end;
 

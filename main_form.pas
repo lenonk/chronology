@@ -2,17 +2,12 @@ unit main_form;
 
 {$mode objfpc}{$H+}
 
-//{$L libzfs.so}
-
 interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
   Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, create_form, LCLType,
   FileUtil, about_form, settings_form, JSonTools, ChronoUtility;
-
-type
-  libzfs_handle_p = pointer;
 
 type
 
@@ -319,6 +314,7 @@ procedure TMainForm.Timer1Timer(Sender: TObject);
 var
   CurrentRow: integer;
   Config: TJsonNode;
+  ConfigDir, ConfigFile: ansistring;
 begin
   CurrentRow := SnapshotList.Row;
   UpdateSnapshots();
@@ -327,20 +323,27 @@ begin
   else
     SnapshotList.Row := 1;
 
-  if (SettingsForm = nil) then
-    Exit();
+  if (not GetConfigLocation(ConfigDir, ConfigFile)) then Exit();
 
-  if (not FileExists(SettingsForm.ConfigDir + SettingsForm.ConfigFile)) then
-    Exit();
+  if (not FileExists(ConfigDir + ConfigFile)) then Exit();
 
   Config := TJsonNode.Create();
-  Config.LoadFromFile(SettingsForm.ConfigDir + SettingsForm.ConfigFile);
+  Config.LoadFromFile(ConfigDir + ConfigFile);
 
   if ((Config.Find('monthly/enabled').Value.ToBoolean() = False)
       and (Config.Find('weekly/enabled').Value.ToBoolean() = False)
       and (Config.Find('daily/enabled').Value.ToBoolean() = False)
       and (Config.Find('hourly/enabled').Value.ToBoolean() = False)
       and (Config.Find('boot/enabled').Value.ToBoolean() = False)) then begin
+    ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
+    ActiveLabel.Caption := 'No Snapshots are scheduled';
+  end
+  else begin
+    ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-OK-ICON');
+    ActiveLabel.Caption := 'Chronology is active';
+  end;
+
+  if (Config.Find('datasets/count').Value.ToInteger() = 0) then begin
     ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
     ActiveLabel.Caption := 'No Snapshots are scheduled';
   end
