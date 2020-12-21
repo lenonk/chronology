@@ -20,6 +20,13 @@ var
   Scheduler: TScheduler;
 
 begin
+  if (Application.HasOption('s', 'scheduler')) then begin
+    Scheduler := TScheduler.Create();
+    writeln('Running in scheduler mode: ', DateTimeToUnix(Now));
+    Scheduler.Run();
+    Exit();
+  end;
+
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
@@ -32,14 +39,6 @@ begin
     Application.MessageBox(PChar(Message), 'Chronology - Error', BoxStyle);
     Application.Terminate();
   end;}
-
-  if (Application.HasOption('s', 'scheduler')) then begin
-    Scheduler := TScheduler.Create();
-    writeln('Running in scheduler mode: ', DateTimeToUnix(Now));
-    Scheduler.Run();
-    Exit();
-  end;
-
 
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TCreateForm, CreateForm);

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
   Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, LCLType,
-  FileUtil, DateUtils, JsonTools, LazLoggerBase;
+  FileUtil, DateUtils, JsonTools, LazLoggerBase, StrUtils;
 
 type
   TSnapshotReason = (srAutomatic, srManual);
@@ -19,8 +19,29 @@ function GetConfigLocation(out dir: ansistring; out fname:ansistring; out Error:
 function CreateSnapshot(Dataset: ansistring; Reason: TSnapshotReason; out Error: ansistring;
   Schedule: ansistring = ''): boolean;
 function DeleteSnapshot(SSName: ansistring; out Error: ansistring): boolean;
+function ListDatasets(var Grid: TStringGrid; out Error: ansistring): boolean;
+function ListSnapshots(var Grid: TStringGrid; out Error: ansistring): boolean;
+function GetSnapshotType(ss: ansistring): ansistring;
+function GetSnapshotDate(ss: ansistring): ansistring;
+operator not(n: TJsonNode): Boolean;
 
 implementation
+
+operator not(n: TJsonNode): Boolean;
+begin
+  Result := n = nil;
+end;
+
+operator in(s: ansistring; a: array of ansistring): Boolean;
+var
+  b: ansistring;
+begin
+  Result := false;
+  for b in a do begin
+    Result := s = b;
+    if Result then break;
+  end;
+end;
 
 procedure AddIconToButton(Name: WideString; var Button: TBitBtn; sx: Integer = 0; sy: Integer = 0);
 var
@@ -152,20 +173,20 @@ begin
     SSName := Dataset + '@manual.' + IntToStr(DateTimeToUnix(Now));
 
   if RunCommand('zfs', ['snap', SSName], Output, [poUsePipes, poStderrToOutPut]) then begin
-    Result := true;
-  end
-  else begin
-    if (Length(Output) <> 0) then begin
-      Error := Output;
-      debugln(Output);
-    end
-    else begin
-      Error := 'Creating snapshot failed. Please make sure the ZFS tools are in your path.';
-      debugln(Error);
-    end;
+     Result := true;
+   end
+   else begin
+     if (Length(Output) <> 0) then begin
+       Error := Output;
+       debugln(Output);
+     end
+     else begin
+       Error := 'Creating snapshot failed. Please make sure the ZFS tools are in your path.';
+       debugln(Error);
+     end;
 
-    Exit(false);
-  end;
+     Exit(false);
+   end;
 
   if (Reason = srManual) then Exit(true);
 
@@ -215,8 +236,10 @@ begin
 
   if not GetConfigLocation(ConfigDir, ConfigFile, Error) then begin
     debugln(Error);
-    Exit(false);
+    Exit(true);
   end;
+
+  if not FileExists(ConfigDir + ConfigFile) then Exit(true);
 
   Config := TJsonNode.Create();
   Config.LoadFromFile(ConfigDir + ConfigFile);
@@ -238,6 +261,91 @@ begin
   Config.Free();
 
   Result := true;
+end;
+
+function ListDatasets(var Grid: TStringGrid; out Error: ansistring): boolean;
+var
+  i: Integer;
+  Output: ansistring;
+  a, b: TStringArray;
+begin
+  for i := Grid.RowCount - 1 downto 1 do Grid.DeleteRow(i);
+
+  if RunCommand('zfs', ['list', '-t', 'filesystem'], Output, [poUsePipes, poStderrToOutPut]) then
+  begin
+    a := Output.Split(AnsiChar(#10));
+    for i := 1 to Length(a) - 2 do
+    begin
+      b := a[i].Split(' ', TStringSplitOptions.ExcludeEmpty);
+      Grid.InsertRowWithValues(i, ['0', b[0], b[1], b[2], b[3], b[4]]);
+    end;
+    Result := true;
+  end
+  else
+  begin
+    if (Length(Output) <> 0) then Error := Output
+    else Error := 'Listing snapshot failed. Please make sure the ZFS tools are in your path.';
+    Result := false;
+  end;
+end;
+
+function GetSnapshotType(ss: ansistring): ansistring;
+var
+  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
+  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
+  Idx: Integer;
+  a: TStringArray;
+begin
+  a := ss.Split('.');
+  if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit('-');
+
+  if a[0] = 'manual' then Idx := 0
+  else Idx := 1;
+
+  Result := AnsiProperCase(a[Idx], [' ']);
+end;
+
+function GetSnapshotDate(ss: ansistring): ansistring;
+var
+  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
+  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
+  Idx: Integer;
+  a: TStringArray;
+begin
+  a := ss.Split('.');
+  if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit(ss);
+
+  if a[0] = 'manual' then Idx := 1
+  else Idx := 2;
+
+  Result := DateTimeToStr(UnixToDateTime(StrToInt(a[Idx])));
+end;
+
+function ListSnapshots(var Grid: TStringGrid; out Error: ansistring): boolean;
+var
+  i: Integer;
+  Output: ansistring;
+  a, b: TStringArray;
+begin
+  for i := Grid.RowCount - 1 downto 1 do
+    Grid.DeleteRow(i);
+
+  if RunCommand('zfs', ['list', '-t', 'snapshot'], Output, [poUsePipes, poStderrToOutPut]) then
+  begin
+    a := Output.Split(AnsiChar(#10));
+    for i := 1 to Length(a) - 2 do
+    begin
+      b := a[i].Split(' @', TStringSplitOptions.ExcludeEmpty);
+      Grid.InsertRowWithValues(i, [b[0], GetSnapshotType(b[1]), GetSnapshotDate(b[1]), b[2], b[4], b[1]]);
+    end;
+    Result := true;
+  end
+  else
+  begin
+    if (Length(Output) = 0) then Error := Output
+    else Error := 'Listing snapshot failed. Please make sure the ZFS tools are in your path.';
+    Result := false;
+  end;
 end;
 
 end.

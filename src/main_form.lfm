@@ -4,8 +4,8 @@ object MainForm: TMainForm
   Top = 55
   Width = 618
   Caption = 'Chronology'
-  ClientHeight = 351
-  ClientWidth = 378
+  ClientHeight = 401
+  ClientWidth = 618
   Constraints.MinHeight = 290
   Constraints.MinWidth = 560
   Icon.Data = {
@@ -2127,7 +2127,6 @@ object MainForm: TMainForm
   }
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '2.0.10.0'
   object Panel3: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -2226,32 +2225,39 @@ object MainForm: TMainForm
       ColCount = 6
       Columns = <      
         item
+          ReadOnly = True
           Title.Caption = 'Dataset'
           Width = 236
         end      
         item
+          ReadOnly = True
           Title.Caption = 'Type'
           Width = 100
         end      
         item
+          ReadOnly = True
           Title.Caption = 'Date'
           Width = 120
         end      
         item
+          ReadOnly = True
           Title.Caption = 'Size'
           Width = 75
         end      
         item
+          ReadOnly = True
           Title.Caption = 'References'
           Width = 75
         end      
         item
+          ReadOnly = True
           Title.Caption = 'DatasetName'
           Width = 0
           Visible = False
         end>
       DefaultRowHeight = 32
       ExtendedSelect = False
+      FixedColor = clBackground
       FixedCols = 0
       GridLineWidth = 0
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect, goDblClickAutoSize, goSmoothScroll]
@@ -2911,8 +2917,8 @@ object MainForm: TMainForm
       Left = 176
       Height = 17
       Top = 40
-      Width = 159
-      Caption = 'December 17, 2020 01:30 AM'
+      Width = 31
+      Caption = 'None'
       Font.Height = -13
       Font.Name = 'Fira Sans'
       Font.Style = [fsItalic]
@@ -2923,8 +2929,8 @@ object MainForm: TMainForm
       Left = 184
       Height = 17
       Top = 56
-      Width = 160
-      Caption = 'December 17, 2020 01:00 AM'
+      Width = 31
+      Caption = 'None'
       Font.Height = -13
       Font.Name = 'Fira Sans'
       Font.Style = [fsItalic]

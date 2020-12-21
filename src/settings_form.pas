@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, ExtCtrls,
-  Buttons, StdCtrls, Spin, JsonTools, LCLType, SpinEx, ChronoUtility;
+  Buttons, StdCtrls, Spin, JsonTools, LCLType, Grids, SpinEx, ChronoUtility;
 
 type
 
@@ -16,7 +16,6 @@ type
     ScheduleActiveLabel: TLabel;
     DatasetActiveLabel: TLabel;
     CenterLabel: TLabel;
-    DatasetsCheckGroup: TCheckGroup;
     DatasetIntervalLabel: TLabel;
     Label10: TLabel;
     Label16: TLabel;
@@ -35,6 +34,7 @@ type
     SettingsOkButton: TBitBtn;
     MonthlyCheckbox: TCheckBox;
     DatasetShieldImage: TImage;
+    DatasetGrid: TStringGrid;
     WeeklyCheckbox: TCheckBox;
     DailyCheckbox: TCheckBox;
     HourlyCheckbox: TCheckBox;
@@ -59,8 +59,9 @@ type
     Panel1: TPanel;
     ScheduleShieldImage: TImage;
     procedure BootCheckboxChange(Sender: TObject);
-    procedure DatasetsCheckGroupItemClick(Sender: TObject; Index: integer);
     procedure DailyCheckboxChange(Sender: TObject);
+    procedure DatasetGridCheckboxToggled(sender: TObject; aCol, aRow: Integer;
+      aState: TCheckboxState);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -87,11 +88,6 @@ implementation
 
 {$R *.lfm}
 
-operator not(n: TJsonNode): Boolean;
-begin
-  Result := n = nil;
-end;
-
 { TSettingsForm }
 
 procedure TSettingsForm.UpdateShieldIcon();
@@ -108,8 +104,8 @@ begin
       and (not BootCheckbox.Checked)) then ScheduleState := false;
 
   DatasetState := False;
-  for i := 0 to DatasetsCheckgroup.Items.Count - 1 do begin
-    if (DatasetsCheckgroup.Checked[i]) then DatasetState := True;
+  for i := 0 to DatasetGrid.RowCount - 1 do begin
+    if DatasetGrid.Rows[i][0] = '1' then DatasetState := True;
   end;
 
   if (DatasetState = False) then begin
@@ -199,7 +195,7 @@ begin
     Node.Add('keep', MonthlyEdit.Value);
   end
   else begin
-      Node.Find('enabled').Value := MonthlyCheckbox.Checked.ToString();
+      Node.Find('enabled').AsBoolean := MonthlyCheckbox.Checked;
       Node.Find('keep').Value := MonthlyEdit.Value.ToString();
   end;
 
@@ -210,7 +206,7 @@ begin
     Node.Add('keep', WeeklyEdit.Value);
   end
   else begin
-      Node.Find('enabled').Value := WeeklyCheckbox.Checked.ToString();
+      Node.Find('enabled').AsBoolean := WeeklyCheckbox.Checked;
       Node.Find('keep').Value := WeeklyEdit.Value.ToString();
   end;
 
@@ -221,7 +217,7 @@ begin
     Node.Add('keep', DailyEdit.Value);
   end
   else begin
-      Node.Find('enabled').Value := DailyCheckbox.Checked.ToString();
+      Node.Find('enabled').AsBoolean := DailyCheckbox.Checked;
       Node.Find('keep').Value := DailyEdit.Value.ToString();
   end;
 
@@ -232,7 +228,7 @@ begin
     Node.Add('keep', HourlyEdit.Value);
   end
   else begin
-      Node.Find('enabled').Value := HourlyCheckbox.Checked.ToString();
+      Node.Find('enabled').AsBoolean := HourlyCheckbox.Checked;
       Node.Find('keep').Value := HourlyEdit.Value.ToString();
   end;
 
@@ -243,16 +239,16 @@ begin
     Node.Add('keep', BootEdit.Value);
   end
   else begin
-      Node.Find('enabled').Value := BootCheckbox.Checked.ToString();
+      Node.Find('enabled').AsBoolean := BootCheckbox.Checked;
       Node.Find('keep').Value := BootEdit.Value.ToString();
   end;
 
   Node := Config.Find('datasets');
   if (Node = nil) then Node := Config.Add('datasets');
 
-  for i := 0 to DatasetsCheckGroup.Items.Count - 1 do begin
-    DatasetName := DatasetsCheckGroup.Items[i];
-    if (DatasetsCheckGroup.Checked[i]) then begin
+  for i := 1 to DatasetGrid.RowCount - 1 do begin
+    DatasetName := DatasetGrid.Rows[i][1];
+    if DatasetGrid.Rows[i][0] = '1' then begin
       if not Node.Find(DatasetName) then Node.Add(DatasetName);
     end
     else begin
@@ -269,14 +265,15 @@ begin
     UpdateShieldIcon();
 end;
 
+procedure TSettingsForm.DatasetGridCheckboxToggled(sender: TObject; aCol,
+  aRow: Integer; aState: TCheckboxState);
+begin
+  UpdateShieldIcon();
+end;
+
 procedure TSettingsForm.BootCheckboxChange(Sender: TObject);
 begin
     UpdateShieldIcon();
-end;
-
-procedure TSettingsForm.DatasetsCheckGroupItemClick(Sender: TObject; Index: integer);
-begin
-  UpdateShieldIcon();
 end;
 
 procedure TSettingsForm.FormCreate(Sender: TObject);
@@ -292,9 +289,17 @@ end;
 procedure TSettingsForm.FormShow(Sender: TObject);
 var
   Config, Node: TJsonNode;
-  i, idx: Integer;
+  i, j: Integer;
+  Error: ansistring;
 
 begin
+  DatasetGrid.FocusColor := clWindow;
+
+  if not ListDatasets(DatasetGrid, Error) then begin
+     Application.MessageBox(PChar('Error listing datasets.'), 'Chronology - Error', MB_ICONERROR + MB_OK);
+     Exit();
+  end;
+
   if (not FileExists(ConfigDir + ConfigFile)) then
     Exit();
 
@@ -342,11 +347,15 @@ begin
   end;
 
   Node := Config.Find('datasets');
+
   if (Node <> nil) then begin
     for i := 0 to Node.Count - 1 do begin
-      idx := DatasetsCheckGroup.Items.IndexOf(Node.Child(i).Name);
-      if (idx >= 0) then
-        DatasetsCheckGroup.Checked[idx] := true;
+      for j := 1 to DatasetGrid.RowCount - 1 do begin;
+        if DatasetGrid.Rows[j][1] = Node.Child(i).Name then begin
+          DatasetGrid.Rows[j][0] := '1';
+          break;
+        end;
+      end;
     end;
   end;
 

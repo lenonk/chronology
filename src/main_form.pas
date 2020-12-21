@@ -66,8 +66,6 @@ type
   private
     procedure UpdateSnapshots();
     function GetDatasetName(): ansistring;
-    function GetSnapshotType(ss: ansistring): ansistring;
-    function GetSnapshotDate(ss: ansistring): ansistring;
   public
 
   end;
@@ -80,16 +78,6 @@ implementation
 {$R *.lfm}
 
 { TMainForm }
-operator in(s: ansistring; a: array of ansistring): Boolean;
-var
-  b: ansistring;
-begin
-  Result := false;
-  for b in a do begin
-    Result := s = b;
-    if Result then break;
-  end;
-end;
 
 function TMainForm.GetDatasetName(): ansistring;
 begin
@@ -247,72 +235,12 @@ begin
   end;
 end;
 
-function TMainForm.GetSnapshotType(ss: ansistring): ansistring;
-var
-  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
-  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
-  Idx: Integer;
-  a: TStringArray;
-begin
-  a := ss.Split('.');
-  if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit('-');
-
-  if a[0] = 'manual' then Idx := 0
-  else Idx := 1;
-
-  Result := AnsiProperCase(a[Idx], [' ']);
-end;
-
-function TMainForm.GetSnapshotDate(ss: ansistring): ansistring;
-var
-  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
-  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
-  Idx: Integer;
-  a: TStringArray;
-begin
-  a := ss.Split('.');
-  if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit(ss);
-
-  if a[0] = 'manual' then Idx := 1
-  else Idx := 2;
-
-  Result := DateTimeToStr(UnixToDateTime(StrToInt(a[Idx])));
-end;
-
 procedure TMainForm.UpdateSnapshots();
 var
-  Output: ansistring;
-  a, b: TStringArray;
-  i: integer;
+  Error: ansistring;
 begin
-
-  for i := SnapshotList.RowCount - 1 downto 1 do
-    SnapshotList.DeleteRow(i);
-
-  // I *really hate* this, but the libzfs API is ridiculous.  If you look at
-  // the code for the "zfs list -t snapshot" command, you'll see that you have
-  // to implement zfs_for_each() which takes a callback, which calls itself
-  // recursively, and then another userland callback is called for each
-  // row of output.  If I was in C, I'd just copy that code and move on,
-  // But I'm not down for porting it to free pascal at the moment.
-  if RunCommand('zfs', ['list', '-t', 'snapshot'], Output,
-    [poUsePipes, poStderrToOutPut]) then
-  begin
-    a := Output.Split(AnsiChar(#10));
-    for i := 1 to Length(a) - 2 do
-    begin
-      b := a[i].Split(' @', TStringSplitOptions.ExcludeEmpty);
-      SnapshotList.InsertRowWithValues(i, [b[0], GetSnapshotType(b[1]),
-            GetSnapshotDate(b[1]), b[2], b[4], b[1]]);
-    end;
-  end
-  else
-  begin
-    if (Length(Output) <> 0) then
-      ShowMessage(Output)
-    else
-      ShowMessage('Listing snapshot failed. Please make sure the ZFS tools are in your path.');
-  end;
+  if not ListSnapshots(SnapshotList, Error) then
+    Application.MessageBox(PChar(Error), 'Chronology - Error', MB_ICONERROR + MB_OK);
 
   NumSnapshotsLabel.Caption := IntToStr(SnapshotList.RowCount - 1);
 end;
@@ -346,6 +274,7 @@ var
   CurrentRow: integer;
   Config: TJsonNode;
   ConfigDir, ConfigFile, Error: ansistring;
+  LatestSnapshot: TDateTime;
 begin
   CurrentRow := SnapshotList.Row;
   UpdateSnapshots();
@@ -381,6 +310,14 @@ begin
     ActiveLabel.Caption := 'Chronology is active';
   end;
 
+  if Config.Find('last_snapshot_time') <> nil then begin
+    LatestSnapshot := StrToDateTime(Config.Find('last_snapshot_time').Value.DeQuotedString('"'));
+    LatestSnapshotData.Caption := FormatDateTime('mmmm d, yyyy hh:nn AM/PM', LatestSnapshot);
+  end
+  else
+    LatestSnapshotData.Caption := 'None';
+
+  OldestSnapshotData.Caption := 'None';
   Config.Free();
 end;
 
