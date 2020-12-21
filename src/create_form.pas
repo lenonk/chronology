@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Buttons, Contnrs, Process, LCLType;
+  Buttons, Contnrs, Process, LCLType, ChronoUtility;
 
 type
 
@@ -108,31 +108,23 @@ end;
 
 procedure TCreateForm.CreateButtonClick(Sender: TObject);
 var
-  Output, SSName, Message: ansistring;
-  Reply, BoxStyle: Integer;
+  Output, SSName: ansistring;
+  Reply: Integer;
 begin
+  Reply := Application.MessageBox(
+        PChar('Are you sure you wish to create a new snapshot of ' + FileSystemListBox.GetSelectedText() + '?'),
+        'Create a New Snapshot?', MB_ICONQUESTION + MB_YESNO);
+
+  if (Reply <> IDYES) then begin
     ModalResult := mrNone;
+    Exit();
+  end;
 
-    SSName := FileSystemListBox.GetSelectedText() + '@' +
-           FormatDateTime('YYYY-MM-DD-HH.NN.AM/PM', Now);
-
-    BoxStyle := MB_ICONQUESTION + MB_YESNO;
-    Message := 'Are you sure you wish to create a new snapsot of ' +
-                FileSystemListBox.GetSelectedText() + '?';
-
-    Reply := Application.MessageBox(PChar(Message), 'Create a New Snapshot?', BoxStyle);
-
-    if (Reply <> IDYES) then Exit();
-
-    if RunCommand('zfs', ['snap', SSName], Output,
-                         [poUsePipes, poStderrToOutPut]) then begin
-       if (Length(Output) <> 0) then ShowMessage(Output);
-       ModalResult := mrYes;
-    end
-    else begin
-        if (Length(Output) <> 0) then ShowMessage(Output)
-        else ShowMessage('Creating snapshot failed. Please make sure the ZFS tools are in your path.');
-    end;
+  ModalResult := mrNone;
+  if (CreateSnapshot(FileSystemListBox.GetSelectedText(), srManual, Output)) then
+     ModalResult := mrYes
+  else
+    Application.MessageBox(PChar(Output), 'Chronology - Error', MB_ICONERROR + MB_OK);
 end;
 
 procedure TCreateForm.CancelButtonClick(Sender: TObject);

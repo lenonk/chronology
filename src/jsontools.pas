@@ -1006,7 +1006,7 @@ begin
   Result := nil;
   if Path = '' then
     Exit(Child(''));
-  if Path[1] = '/' then
+  if Path[1] = '|' then
   begin
     N := Self;
     while N.Parent <> nil do
@@ -1015,7 +1015,7 @@ begin
   else
     N := Self;
   A := PChar(Path);
-  if A^ = '/' then
+  if A^ = '|' then
   begin
     Inc(A);
     if A^ = #0 then
@@ -1026,7 +1026,7 @@ begin
   B := A;
   while B^ > #0 do
   begin
-    if B^ = '/' then
+    if B^ = '|' then
     begin
       SetString(S, A, B - A);
       N := N.Child(S);

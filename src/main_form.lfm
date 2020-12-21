@@ -2127,7 +2127,6 @@ object MainForm: TMainForm
   }
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '2.0.10.0'
   object Panel3: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -2223,24 +2222,32 @@ object MainForm: TMainForm
       Align = alClient
       AlternateColor = clBackground
       AutoEdit = False
-      AutoFillColumns = True
-      ColCount = 4
+      ColCount = 6
       Columns = <      
         item
           Title.Caption = 'Dataset'
-          Width = 151
+          Width = 236
         end      
         item
-          Title.Caption = 'Snapshot'
-          Width = 151
+          Title.Caption = 'Type'
+          Width = 100
+        end      
+        item
+          Title.Caption = 'Date'
+          Width = 120
         end      
         item
           Title.Caption = 'Size'
-          Width = 151
+          Width = 75
         end      
         item
           Title.Caption = 'References'
-          Width = 153
+          Width = 75
+        end      
+        item
+          Title.Caption = 'DatasetName'
+          Width = 0
+          Visible = False
         end>
       DefaultRowHeight = 32
       ExtendedSelect = False
@@ -2252,10 +2259,12 @@ object MainForm: TMainForm
       TitleStyle = tsNative
       OnMouseDown = SnapshotListMouseDown
       ColWidths = (
-        151
-        151
-        151
-        153
+        236
+        100
+        120
+        75
+        75
+        0
       )
     end
   end
@@ -2303,9 +2312,10 @@ object MainForm: TMainForm
       TabOrder = 1
       object NumSnapShotsLabel: TLabel
         Left = 35
-        Height = 24
+        Height = 32
         Top = 8
         Width = 12
+        AutoSize = False
         Caption = '0'
         Font.Height = -19
         Font.Name = 'Fira Sans'
@@ -2314,10 +2324,16 @@ object MainForm: TMainForm
         ParentFont = False
       end
       object Label1: TLabel
-        Left = 7
-        Height = 17
+        AnchorSideLeft.Control = Panel5
+        AnchorSideRight.Control = Panel5
+        AnchorSideRight.Side = asrBottom
+        Left = 1
+        Height = 21
         Top = 35
-        Width = 70
+        Width = 80
+        Alignment = taCenter
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
         Caption = 'Snapshot(s)'
         ParentColor = False
       end
@@ -2327,11 +2343,11 @@ object MainForm: TMainForm
       AnchorSideTop.Control = Panel2
       AnchorSideBottom.Control = Panel2
       AnchorSideBottom.Side = asrBottom
-      Left = -2
+      Left = 0
       Height = 70
       Top = 5
       Width = 72
-      Anchors = []
+      Anchors = [akLeft]
       Picture.Data = {
         1754506F727461626C654E6574776F726B477261706869638340000089504E47
         0D0A1A0A0000000D4948445200000200000002000806000000F478D4FA000000
@@ -2941,7 +2957,6 @@ object MainForm: TMainForm
     Visible = False
   end
   object Timer1: TTimer
-    Interval = 500
     OnTimer = Timer1Timer
     Left = 528
     Top = 528
@@ -3117,8 +3132,8 @@ object MainForm: TMainForm
     end
   end
   object SnapshotsPopup: TPopupMenu
-    Left = 352
-    Top = 176
+    Left = 360
+    Top = 168
     object RestoreMenuItem: TMenuItem
       Caption = 'Restore'
       OnClick = RestoreMenuItemClick

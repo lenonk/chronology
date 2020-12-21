@@ -7,9 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main_form, create_form, SysUtils, LCLType, lazrichview, lazcontrols,
+  Forms, main_form, create_form, SysUtils, LCLType, lazcontrols,
   about_form, settings_form, license_form, ChronoUtility, credits_form,
-  ChronoScheduler
+  ChronoScheduler, DateUtils, LazLogger
   { you can add units after this };
 
 {$R *.res}
@@ -29,15 +29,17 @@ begin
     Message := 'Admin accesss is required to backup and restore system files.' + sLineBreak +
                'Please re-run the application as admin (using ''sudo'', ''su'', or ''pkexec'').';
 
-    Application.MessageBox(PChar(Message), 'Admin Access Required', BoxStyle);
+    Application.MessageBox(PChar(Message), 'Chronology - Error', BoxStyle);
     Application.Terminate();
   end;}
 
   if (Application.HasOption('s', 'scheduler')) then begin
-    writeln('Running in scheduler mode.');
+    Scheduler := TScheduler.Create();
+    writeln('Running in scheduler mode: ', DateTimeToUnix(Now));
     Scheduler.Run();
-    Application.Terminate();
+    Exit();
   end;
+
 
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TCreateForm, CreateForm);

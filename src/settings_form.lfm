@@ -4,8 +4,8 @@ object SettingsForm: TSettingsForm
   Top = 488
   Width = 485
   Caption = 'Chronology Settings'
-  ClientHeight = 630
-  ClientWidth = 485
+  ClientHeight = 240
+  ClientWidth = 320
   Constraints.MaxHeight = 630
   Constraints.MaxWidth = 485
   Constraints.MinHeight = 630
@@ -197,6 +197,7 @@ object SettingsForm: TSettingsForm
         Width = 104
         AutoSize = False
         Caption = 'Boot'
+        Enabled = False
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
@@ -286,6 +287,7 @@ object SettingsForm: TSettingsForm
         Height = 30
         Top = 221
         Width = 80
+        Enabled = False
         MinValue = 1
         TabOrder = 10
         Value = 1
@@ -1624,14 +1626,14 @@ object SettingsForm: TSettingsForm
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 267
-        ClientWidth = 467
+        ClientHeight = 252
+        ClientWidth = 449
         Font.Height = -15
         Font.Name = 'Fira Sans'
         Font.Style = [fsBold]
         Items.Strings = (
           'zphome'
-          'zhome/home'
+          'zphome/home'
           'zproot'
           'zproot/ROOT'
           'zproot/ROOT/manjaro'
@@ -1664,7 +1666,6 @@ object SettingsForm: TSettingsForm
     DefaultCaption = True
     Kind = bkOK
     ModalResult = 1
-    OnClick = SettingsOkButtonClick
     TabOrder = 2
   end
 end

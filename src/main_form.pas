@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
   Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, create_form, LCLType,
-  FileUtil, about_form, settings_form, JSonTools, ChronoUtility;
+  FileUtil, about_form, settings_form, JSonTools, ChronoUtility, StrUtils, DateUtils;
 
 type
 
@@ -65,8 +65,9 @@ type
 
   private
     procedure UpdateSnapshots();
-    function GetSnapshotName(): ansistring;
-
+    function GetDatasetName(): ansistring;
+    function GetSnapshotType(ss: ansistring): ansistring;
+    function GetSnapshotDate(ss: ansistring): ansistring;
   public
 
   end;
@@ -79,11 +80,21 @@ implementation
 {$R *.lfm}
 
 { TMainForm }
-
-function TMainForm.GetSnapshotName(): ansistring;
+operator in(s: ansistring; a: array of ansistring): Boolean;
+var
+  b: ansistring;
 begin
-  GetSnapshotName := SnapshotList.Rows[SnapshotList.Row][0] + '@' +
-                     SnapshotList.Rows[SnapshotList.Row][1];
+  Result := false;
+  for b in a do begin
+    Result := s = b;
+    if Result then break;
+  end;
+end;
+
+function TMainForm.GetDatasetName(): ansistring;
+begin
+  with SnapshotList do
+       Result := Rows[Row][0] + '@' + Rows[Row][5];
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -101,7 +112,7 @@ var
   Output, SSName, UName, DirName: ansistring;
   GUID: TGUID;
 begin
-  SSName := GetSnapshotName();
+  SSName := GetDatasetName();
   UName := GetEnvironmentVariable('USER');
   CreateGuid(GUID);
   DirName := '/run/media/' + UName + '/' + GUID.ToString(True);
@@ -164,30 +175,17 @@ end;
 
 procedure TMainForm.DeleteButtonClick(Sender: TObject);
 var
-  Output, SSName, Message: ansistring;
-  Reply, BoxStyle: integer;
+  Reply: Integer;
+  Error: ansistring;
 begin
-  SSName := GetSnapshotName();
+  Reply := Application.MessageBox(
+      PChar('Are you sure you wish to delete ' + GetDatasetName() + '?'),
+      'Delete a Snapshot?', MB_ICONQUESTION + MB_YESNO);
 
-  BoxStyle := MB_ICONQUESTION + MB_YESNO;
-  Message := 'Are you sure you wish to delete ' + SSName + '?';
-  Reply := Application.MessageBox(PChar(Message), 'Delete a Snapshot?', BoxStyle);
+  if (Reply <> idYes) then Exit();
 
-  if (Reply <> idYes) then
-    Exit();
-
-  if RunCommand('zfs', ['destroy', SSName], Output,
-    [poUsePipes, poStderrToOutPut]) then
-  begin
-    if (Length(Output) <> 0) then
-      ShowMessage(Output);
-  end
-  else
-  begin
-    if (Length(Output) <> 0) then
-      ShowMessage(Output)
-    else
-      ShowMessage('Creating snapshot failed. Please make sure the ZFS tools are in your path.');
+  if not DeleteSnapshot(GetDatasetName(), Error) then begin
+    Application.MessageBox(PChar(Error), 'Chronology - Error', MB_ICONERROR + MB_OK);
   end;
 end;
 
@@ -201,7 +199,7 @@ var
   Output, SSName, Message: ansistring;
   Reply, BoxStyle: integer;
 begin
-  SSName := GetSnapshotName();
+  SSName := GetDatasetName();
 
   BoxStyle := MB_ICONQUESTION + MB_YESNO;
   Message := 'Are you sure you wish to restore ' + SSName + '?';
@@ -249,6 +247,38 @@ begin
   end;
 end;
 
+function TMainForm.GetSnapshotType(ss: ansistring): ansistring;
+var
+  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
+  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
+  Idx: Integer;
+  a: TStringArray;
+begin
+  a := ss.Split('.');
+  if (Length(a) > 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit('-');
+
+  if a[0] = 'manual' then Idx := 0
+  else Idx := 1;
+
+  Result := AnsiProperCase(a[Idx], [' ']);
+end;
+
+function TMainForm.GetSnapshotDate(ss: ansistring): ansistring;
+var
+  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
+  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
+  Idx: Integer;
+  a: TStringArray;
+begin
+  a := ss.Split('.');
+  if (Length(a) > 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit(ss);
+
+  if a[0] = 'manual' then Idx := 1
+  else Idx := 2;
+
+  Result := DateTimeToStr(UnixToDateTime(StrToInt(a[Idx])));
+end;
+
 procedure TMainForm.UpdateSnapshots();
 var
   Output: ansistring;
@@ -272,7 +302,8 @@ begin
     for i := 1 to Length(a) - 2 do
     begin
       b := a[i].Split(' @', TStringSplitOptions.ExcludeEmpty);
-      SnapshotList.InsertRowWithValues(i, [b[0], b[1], b[2], b[4]]);
+      SnapshotList.InsertRowWithValues(i, [b[0], GetSnapshotType(b[1]),
+            GetSnapshotDate(b[1]), b[2], b[4], b[1]]);
     end;
   end
   else
@@ -314,7 +345,7 @@ procedure TMainForm.Timer1Timer(Sender: TObject);
 var
   CurrentRow: integer;
   Config: TJsonNode;
-  ConfigDir, ConfigFile: ansistring;
+  ConfigDir, ConfigFile, Error: ansistring;
 begin
   CurrentRow := SnapshotList.Row;
   UpdateSnapshots();
@@ -323,27 +354,25 @@ begin
   else
     SnapshotList.Row := 1;
 
-  if (not GetConfigLocation(ConfigDir, ConfigFile)) then Exit();
+  if not GetConfigLocation(ConfigDir, ConfigFile, Error) then begin
+    Application.MessageBox(PChar(Error), 'Chronology - Error', MB_ICONERROR + MB_OK);
+    Exit();
+  end;
 
   if (not FileExists(ConfigDir + ConfigFile)) then Exit();
 
   Config := TJsonNode.Create();
   Config.LoadFromFile(ConfigDir + ConfigFile);
 
-  if ((Config.Find('monthly/enabled').Value.ToBoolean() = False)
-      and (Config.Find('weekly/enabled').Value.ToBoolean() = False)
-      and (Config.Find('daily/enabled').Value.ToBoolean() = False)
-      and (Config.Find('hourly/enabled').Value.ToBoolean() = False)
-      and (Config.Find('boot/enabled').Value.ToBoolean() = False)) then begin
+  if ((Config.Find('monthly|enabled').Value.ToBoolean() = False)
+      and (Config.Find('weekly|enabled').Value.ToBoolean() = False)
+      and (Config.Find('daily|enabled').Value.ToBoolean() = False)
+      and (Config.Find('hourly|enabled').Value.ToBoolean() = False)
+      and (Config.Find('boot|enabled').Value.ToBoolean() = False)) then begin
     ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
     ActiveLabel.Caption := 'No Snapshots are scheduled';
   end
-  else begin
-    ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-OK-ICON');
-    ActiveLabel.Caption := 'Chronology is active';
-  end;
-
-  if (Config.Find('datasets/count').Value.ToInteger() = 0) then begin
+  else if (Config.Find('datasets').Count = 0) then begin
     ShieldImage.Picture.LoadFromResourceName(HInstance, 'SHIELD-WARNING-ICON');
     ActiveLabel.Caption := 'No Snapshots are scheduled';
   end

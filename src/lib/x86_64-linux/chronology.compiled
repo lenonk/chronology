@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="/usr/bin/fpc" Date="1601933129"/>
-  <Params Value=" -MObjFPC -Scghi -Cg -O1 -gw3 -gl -l -vewnhibq -Fi/home/lenon/projects/chronology/src/lib/x86_64-linux -Fl/usr/lib -Fu/home/lenon/.lazarus/onlinepackagemanager/packages/lazrichview/lib/x86_64-linux -Fu/home/lenon/.lazarus/lib/Printer4Lazarus/lib/x86_64-linux/qt5 -Fu/home/lenon/.lazarus/lib/LazControls/lib/x86_64-linux/qt5 -Fu/home/lenon/.lazarus/lib/cairocanvas_pkg/lib/x86_64-linux/qt5 -Fu/home/lenon/.lazarus/lib/units/x86_64-linux/qt5 -Fu/home/lenon/.lazarus/lib/LCLBase/units/x86_64-linux -Fu/home/lenon/.lazarus/lib/LazUtils/lib/x86_64-linux -Fu/home/lenon/.lazarus/lib/units/x86_64-linux -Fu/home/lenon/projects/chronology/src/ -FU/home/lenon/projects/chronology/src/lib/x86_64-linux/ -FE/home/lenon/projects/chronology/src/ -o/home/lenon/projects/chronology/src/chronology -dLCL -dLCLqt5 chronology.lpr"/>
-</CONFIG>

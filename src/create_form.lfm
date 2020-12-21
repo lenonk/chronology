@@ -25,8 +25,8 @@ object CreateForm: TCreateForm
     Width = 221
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Choose a Filesystem:'
-    ClientHeight = 250
-    ClientWidth = 221
+    ClientHeight = 253
+    ClientWidth = 203
     TabOrder = 0
     object FileSystemListBox: TListBox
       Left = 0

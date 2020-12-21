@@ -3,14 +3,14 @@
   <ProjectSession>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="11">
+    <Units Count="14">
       <Unit0>
         <Filename Value="chronology.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
-        <CursorPos X="4" Y="37"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="6"/>
+        <CursorPos X="10" Y="40"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_form.pas"/>
@@ -18,8 +18,10 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="315"/>
-        <CursorPos X="56" Y="346"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="74"/>
+        <CursorPos Y="82"/>
+        <FoldState Value=" T3j7047 piZjC03]9jNjg0B3;"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -31,9 +33,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="90"/>
-        <CursorPos X="11" Y="140"/>
-        <UsageCount Value="150"/>
+        <TopLine Value="84"/>
+        <CursorPos Y="128"/>
+        <UsageCount Value="201"/>
       </Unit2>
       <Unit3>
         <Filename Value="about_form.pas"/>
@@ -41,11 +43,10 @@
         <ComponentName Value="AboutForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="21"/>
-        <CursorPos X="69" Y="63"/>
-        <UsageCount Value="120"/>
-        <Loaded Value="True"/>
+        <CursorPos X="33" Y="63"/>
+        <UsageCount Value="180"/>
       </Unit3>
       <Unit4>
         <Filename Value="settings_form.pas"/>
@@ -54,11 +55,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="229"/>
-        <CursorPos Y="262"/>
-        <FoldState Value=" T3j60m61411x"/>
-        <UsageCount Value="85"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="226"/>
+        <CursorPos X="19" Y="259"/>
+        <FoldState Value=" T3jA0m515 pibn203("/>
+        <UsageCount Value="145"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
@@ -70,16 +71,15 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="14"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="119"/>
       </Unit5>
       <Unit6>
         <Filename Value="chronoutility.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ChronoUtility"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="38"/>
-        <CursorPos X="29" Y="49"/>
-        <UsageCount Value="59"/>
+        <CursorPos X="15" Y="23"/>
+        <FoldState Value=" T3O0R1H"/>
+        <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -90,166 +90,84 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="61" Y="38"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="118"/>
       </Unit7>
       <Unit8>
         <Filename Value="chronoscheduler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ChronoScheduler"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="9"/>
-        <CursorPos Y="58"/>
-        <UsageCount Value="35"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="88"/>
+        <CursorPos Y="112"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="jsontools.pas"/>
         <UnitName Value="JsonTools"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="706"/>
-        <CursorPos Y="722"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="645"/>
+        <CursorPos Y="670"/>
+        <UsageCount Value="28"/>
       </Unit9>
       <Unit10>
         <Filename Value="settings_form.lfm"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="/usr/lib/fpc/src/packages/chm/src/chmreader.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="424"/>
+        <CursorPos X="44" Y="447"/>
+        <UsageCount Value="4"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="/usr/lib/lazarus/lcl/forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1479"/>
+        <CursorPos X="14" Y="1500"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="/usr/lib/lazarus/lcl/include/application.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="210"/>
+        <CursorPos X="23" Y="233"/>
+        <UsageCount Value="9"/>
+      </Unit13>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="3" HistoryIndex="2">
       <Position1>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="351" Column="12" TopLine="312"/>
+        <Caret Line="254" Column="72" TopLine="222"/>
       </Position1>
       <Position2>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
+        <Caret Line="251" Column="37" TopLine="228"/>
       </Position2>
       <Position3>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
+        <Caret Line="250" Column="50" TopLine="224"/>
       </Position3>
-      <Position4>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="256" TopLine="229"/>
-      </Position4>
-      <Position5>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="257" TopLine="229"/>
-      </Position5>
-      <Position6>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
-      </Position6>
-      <Position7>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
-      </Position7>
-      <Position8>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="256" TopLine="229"/>
-      </Position8>
-      <Position9>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="257" TopLine="229"/>
-      </Position9>
-      <Position10>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
-      </Position10>
-      <Position11>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
-      </Position11>
-      <Position12>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="256" TopLine="229"/>
-      </Position12>
-      <Position13>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="257" TopLine="229"/>
-      </Position13>
-      <Position14>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
-      </Position14>
-      <Position15>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
-      </Position15>
-      <Position16>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="256" TopLine="229"/>
-      </Position16>
-      <Position17>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="257" TopLine="229"/>
-      </Position17>
-      <Position18>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
-      </Position18>
-      <Position19>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
-      </Position19>
-      <Position20>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="256" TopLine="229"/>
-      </Position20>
-      <Position21>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="257" TopLine="229"/>
-      </Position21>
-      <Position22>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
-      </Position22>
-      <Position23>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
-      </Position23>
-      <Position24>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="256" TopLine="229"/>
-      </Position24>
-      <Position25>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="257" TopLine="229"/>
-      </Position25>
-      <Position26>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="262" TopLine="229"/>
-      </Position26>
-      <Position27>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="255" TopLine="229"/>
-      </Position27>
-      <Position28>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="266" TopLine="229"/>
-      </Position28>
-      <Position29>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="268" TopLine="229"/>
-      </Position29>
-      <Position30>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="269" TopLine="229"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0" ActiveMode=""/>
+      <Modes Count="1" ActiveMode="default">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
   </ProjectSession>
   <Debugging>
-    <Watches Count="1">
+    <Watches Count="2">
       <Item1>
-        <Expression Value="SSName"/>
+        <Expression Value="Flist[I]"/>
       </Item1>
+      <Item2>
+        <Expression Value="SSName.IndexOf('@')"/>
+      </Item2>
     </Watches>
   </Debugging>
 </CONFIG>

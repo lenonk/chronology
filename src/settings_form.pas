@@ -69,7 +69,6 @@ type
     procedure MonthlyCheckboxChange(Sender: TObject);
     procedure DatasetButtonClick(Sender: TObject);
     procedure ScheduleButtonClick(Sender: TObject);
-    procedure SettingsOkButtonClick(Sender: TObject);
     procedure WeeklyCheckboxChange(Sender: TObject);
 
   private
@@ -87,6 +86,11 @@ var
 implementation
 
 {$R *.lfm}
+
+operator not(n: TJsonNode): Boolean;
+begin
+  Result := n = nil;
+end;
 
 { TSettingsForm }
 
@@ -151,11 +155,6 @@ begin
 
 end;
 
-procedure TSettingsForm.SettingsOkButtonClick(Sender: TObject);
-begin
-
-end;
-
 procedure TSettingsForm.MiscButtonClick(Sender: TObject);
 begin
   SettingsNotebook.PageIndex := 1;
@@ -174,7 +173,7 @@ end;
 procedure TSettingsForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 var
   Config, Node: TJsonNode;
-  i, DatasetCount: Integer;
+  i: Integer;
   DatasetName: ansistring;
 begin
   if (not DirectoryExists(ConfigDir)) then begin
@@ -251,19 +250,15 @@ begin
   Node := Config.Find('datasets');
   if (Node = nil) then Node := Config.Add('datasets');
 
-  DatasetCount := 0;
   for i := 0 to DatasetsCheckGroup.Items.Count - 1 do begin
     DatasetName := DatasetsCheckGroup.Items[i];
     if (DatasetsCheckGroup.Checked[i]) then begin
-      Inc(DatasetCount);
-      Node.Add(DatasetName); // TJsonTools will handle pre-existing
+      if not Node.Find(DatasetName) then Node.Add(DatasetName);
     end
     else begin
-      Node.Delete(DatasetName);
+      Node.Delete(DatasetName); // Ok to delete node that doesn't exist
     end;
   end;
-
-  Node.Add('count', DatasetCount);
 
   Config.SaveToFile(ConfigDir + ConfigFile);
   Config.Free();
@@ -285,9 +280,12 @@ begin
 end;
 
 procedure TSettingsForm.FormCreate(Sender: TObject);
+var
+  Error: ansistring;
 begin
-  if (not GetConfigLocation(ConfigDir, ConfigFile)) then begin
-     Close();
+  if (not GetConfigLocation(ConfigDir, ConfigFile, Error)) then begin
+    Application.MessageBox(PChar(Error), 'Chronology - Error', MB_ICONERROR + MB_OK);
+    Close();
   end;
 end;
 
@@ -346,7 +344,6 @@ begin
   Node := Config.Find('datasets');
   if (Node <> nil) then begin
     for i := 0 to Node.Count - 1 do begin
-      if (Node.Child(i).Name = 'count') then continue;
       idx := DatasetsCheckGroup.Items.IndexOf(Node.Child(i).Name);
       if (idx >= 0) then
         DatasetsCheckGroup.Checked[idx] := true;
