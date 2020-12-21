@@ -255,7 +255,7 @@ var
   a: TStringArray;
 begin
   a := ss.Split('.');
-  if (Length(a) > 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit('-');
+  if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit('-');
 
   if a[0] = 'manual' then Idx := 0
   else Idx := 1;
@@ -271,7 +271,7 @@ var
   a: TStringArray;
 begin
   a := ss.Split('.');
-  if (Length(a) > 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit(ss);
+  if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit(ss);
 
   if a[0] = 'manual' then Idx := 1
   else Idx := 2;

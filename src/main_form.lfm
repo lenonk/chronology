@@ -4,8 +4,8 @@ object MainForm: TMainForm
   Top = 55
   Width = 618
   Caption = 'Chronology'
-  ClientHeight = 401
-  ClientWidth = 618
+  ClientHeight = 351
+  ClientWidth = 378
   Constraints.MinHeight = 290
   Constraints.MinWidth = 560
   Icon.Data = {
@@ -2127,6 +2127,7 @@ object MainForm: TMainForm
   }
   OnCreate = FormCreate
   OnShow = FormShow
+  LCLVersion = '2.0.10.0'
   object Panel3: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner

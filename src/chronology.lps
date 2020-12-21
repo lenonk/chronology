@@ -18,10 +18,11 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="74"/>
-        <CursorPos Y="82"/>
-        <FoldState Value=" T3j7047 piZjC03]9jNjg0B3;"/>
+        <TopLine Value="225"/>
+        <CursorPos X="19" Y="274"/>
+        <FoldState Value=" T3j7047 piZjC03424 pjBlN064"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -46,7 +47,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="21"/>
         <CursorPos X="33" Y="63"/>
-        <UsageCount Value="180"/>
+        <UsageCount Value="181"/>
       </Unit3>
       <Unit4>
         <Filename Value="settings_form.pas"/>
@@ -54,12 +55,11 @@
         <ComponentName Value="SettingsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="83"/>
         <CursorPos X="16" Y="92"/>
         <FoldState Value=" T3jA0m515 pibn203("/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="146"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
@@ -71,7 +71,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="14"/>
-        <UsageCount Value="119"/>
+        <UsageCount Value="120"/>
       </Unit5>
       <Unit6>
         <Filename Value="chronoutility.pas"/>
@@ -79,7 +79,7 @@
         <UnitName Value="ChronoUtility"/>
         <CursorPos X="15" Y="23"/>
         <FoldState Value=" T3O0R1H"/>
-        <UsageCount Value="119"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -90,7 +90,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="61" Y="38"/>
-        <UsageCount Value="118"/>
+        <UsageCount Value="119"/>
       </Unit7>
       <Unit8>
         <Filename Value="chronoscheduler.pas"/>
@@ -99,7 +99,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="88"/>
         <CursorPos Y="112"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="96"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -139,7 +139,7 @@
         <UsageCount Value="9"/>
       </Unit13>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="settings_form.pas"/>
         <Caret Line="254" Column="72" TopLine="222"/>
@@ -152,6 +152,10 @@
         <Filename Value="settings_form.pas"/>
         <Caret Line="250" Column="50" TopLine="224"/>
       </Position3>
+      <Position4>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="92" Column="16" TopLine="83"/>
+      </Position4>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
