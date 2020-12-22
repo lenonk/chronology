@@ -13,6 +13,9 @@ type
   { TSettingsForm }
 
   TSettingsForm = class(TForm)
+    DateFormatCombo: TComboBox;
+    DateFormatEdit: TEdit;
+    Label11: TLabel;
     ScheduleActiveLabel: TLabel;
     DatasetActiveLabel: TLabel;
     CenterLabel: TLabel;
@@ -62,11 +65,15 @@ type
     procedure DailyCheckboxChange(Sender: TObject);
     procedure DatasetGridCheckboxToggled(sender: TObject; aCol, aRow: Integer;
       aState: TCheckboxState);
+    procedure DateFormatComboChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure HourlyCheckboxChange(Sender: TObject);
     procedure MiscButtonClick(Sender: TObject);
+    procedure MiscPageBeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
     procedure MonthlyCheckboxChange(Sender: TObject);
     procedure DatasetButtonClick(Sender: TObject);
     procedure ScheduleButtonClick(Sender: TObject);
@@ -81,12 +88,24 @@ type
       ConfigFile: ansistring;
   end;
 
+  TDateFormat = class(TObject)
+    public
+      Format: ansistring;
+      constructor Create(s: ansistring);
+  end;
+
 var
   SettingsForm: TSettingsForm;
 
 implementation
 
 {$R *.lfm}
+
+constructor TDateFormat.Create(s: ansistring);
+begin
+  inherited Create();
+  Format := s;
+end;
 
 { TSettingsForm }
 
@@ -156,6 +175,50 @@ begin
   SettingsNotebook.PageIndex := 1;
 end;
 
+procedure TSettingsForm.MiscPageBeforeShow(ASender: TObject; ANewPage: TPage;
+  ANewIndex: Integer);
+var
+  Date, DateFormat: ansistring;
+  Idx: Integer;
+  obj: TObject;
+begin
+  for Idx := 1 to DateFormatCombo.Items.Count - 1 do begin
+    // Yes, I know this leaks memory the last time you open the page.  No, I don't care.  It will
+    // be cleaned up at program termination.  Yes, I know that's bad pratice.  No, I don't care.
+    obj := DateFormatCombo.Items.Objects[Idx];
+    if obj <> nil then obj.Destroy();
+  end;
+
+  DateFormatCombo.Clear();
+
+  DateFormat := '';
+  DateFormatCombo.AddItem('Custom', nil);
+
+  DateFormat := 'yyyy-m-d h:nn:ss';
+  Date := FormatDateTime(DateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+
+  DateFormat := 'yyyy-m-d h:nn:ss AM/PM';
+  Date := FormatDateTime(DateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+
+  DateFormat := 'd mmm yyyy hh:nn:ss AM/PM';
+  Date := FormatDateTime(DateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+
+  DateFormat := 'yyyy mmm d, hh:nn:ss AM/PM';
+  Date := FormatDateTime(DateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+
+  DateFormat := 'ddd d mmm yyyy hh:nn:ss AM/PM';
+  Date := FormatDateTime(DateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+
+  // TODO: Find format in config file and update combo to proper item
+  DateFormatCombo.ItemIndex := 1;
+  DateFormatCombo.OnChange(ASender);
+end;
+
 procedure TSettingsForm.MonthlyCheckboxChange(Sender: TObject);
 begin
   UpdateShieldIcon();
@@ -171,6 +234,7 @@ var
   Config, Node: TJsonNode;
   i: Integer;
   DatasetName: ansistring;
+
 begin
   if (not DirectoryExists(ConfigDir)) then begin
     if (not ForceDirectories(ConfigDir)) then begin
@@ -256,8 +320,24 @@ begin
     end;
   end;
 
+  Config.Add('date_time_format', DateFormatEdit.Text);
   Config.SaveToFile(ConfigDir + ConfigFile);
   Config.Free();
+end;
+
+procedure TSettingsForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+var
+  TestDT: string;
+begin
+  try
+    CanClose := true;
+    TestDT := FormatDateTime(DateFormatEdit.Text, Now);
+  except
+    on E: Exception do begin
+      Application.MessageBox(PChar('DateTime format is not valid.'), 'Chronology - Error', MB_ICONERROR + MB_OK);
+      CanClose := false;
+    end;
+  end;
 end;
 
 procedure TSettingsForm.DailyCheckboxChange(Sender: TObject);
@@ -269,6 +349,18 @@ procedure TSettingsForm.DatasetGridCheckboxToggled(sender: TObject; aCol,
   aRow: Integer; aState: TCheckboxState);
 begin
   UpdateShieldIcon();
+end;
+
+procedure TSettingsForm.DateFormatComboChange(Sender: TObject);
+var
+  Format: TDateFormat;
+begin
+  Format := TDateFormat(DateFormatCombo.Items.Objects[DateFormatCombo.ItemIndex]);
+  if Format = nil then DateFormatEdit.Enabled := true
+  else begin
+    DateFormatEdit.Enabled := false;
+    DateFormatEdit.Text := Format.Format;
+  end;
 end;
 
 procedure TSettingsForm.BootCheckboxChange(Sender: TObject);

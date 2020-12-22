@@ -272,9 +272,11 @@ end;
 procedure TMainForm.Timer1Timer(Sender: TObject);
 var
   CurrentRow: integer;
-  Config: TJsonNode;
+  Config, Node, DSNode, SNode, SSNode: TJsonNode;
   ConfigDir, ConfigFile, Error: ansistring;
-  LatestSnapshot: TDateTime;
+  SnapshotTime: TDateTime;
+  SSTimeStamps: TStringList;
+
 begin
   CurrentRow := SnapshotList.Row;
   UpdateSnapshots();
@@ -311,13 +313,30 @@ begin
   end;
 
   if Config.Find('last_snapshot_time') <> nil then begin
-    LatestSnapshot := StrToDateTime(Config.Find('last_snapshot_time').Value.DeQuotedString('"'));
-    LatestSnapshotData.Caption := FormatDateTime('mmmm d, yyyy hh:nn AM/PM', LatestSnapshot);
+    SnapshotTime := StrToDateTime(Config.Find('last_snapshot_time').Value.DeQuotedString('"'));
+    LatestSnapshotData.Caption := FormatDateTime('mmmm d, yyyy hh:nn AM/PM', SnapshotTime);
   end
   else
     LatestSnapshotData.Caption := 'None';
 
-  OldestSnapshotData.Caption := 'None';
+  Node := Config.Find('datasets');
+  if Node = nil then OldestSnapshotData.Caption := 'None'
+  else begin
+    SSTimeStamps := TStringList.Create();
+    for DSNode in Node do begin
+      for SNode in DSNode do begin
+        for SSnode in SNode do begin
+          SSTimeStamps.Add(SSNode.Name);
+        end;
+      end;
+    end;
+
+    SSTimeStamps.Sort();
+    SnapshotTime := UnixToDateTime(StrToInt(SSTimeStamps[0]));
+    OldestSnapshotData.Caption := FormatDateTime('mmmm d, yyyy hh:nn AM/PM', SnapshotTime);
+    SSTimeStamps.Destroy();
+  end;
+
   Config.Free();
 end;
 

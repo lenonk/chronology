@@ -306,10 +306,12 @@ end;
 
 function GetSnapshotDate(ss: ansistring): ansistring;
 var
-  Reasons: array[0..1] of ansistring = ('automatic', 'manual');
-  Schedules: array[0..4] of ansistring = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
+  Reasons: array[0..1] of string = ('automatic', 'manual');
+  Schedules: array[0..4] of string = ('monthly', 'weekly', 'daily', 'hourly', 'boot');
   Idx: Integer;
   a: TStringArray;
+  Config: TJsonNode;
+  ConfigDir, ConfigFile, Format: string;
 begin
   a := ss.Split('.');
   if (Length(a) <= 1) and not (a[0] in Reasons) and not (a[1] in Schedules) then Exit(ss);
@@ -317,7 +319,18 @@ begin
   if a[0] = 'manual' then Idx := 1
   else Idx := 2;
 
-  Result := DateTimeToStr(UnixToDateTime(StrToInt(a[Idx])));
+  if GetConfigLocation(ConfigDir, ConfigFile, Format) then begin
+    Config := TJsonNode.Create();
+    Config.LoadFromFile(ConfigDir + ConfigFile);
+
+    if Config.Find('date_time_format') <> nil then
+      Format := Config.Find('date_time_format').Value.DeQuotedString('"');
+
+    Config.Free();
+    Result := FormatDateTime(Format, UnixToDateTime(StrToInt(a[Idx])));
+  end
+  else Result := DateTimeToStr(UnixToDateTime(StrToInt(a[Idx])))
+
 end;
 
 function ListSnapshots(var Grid: TStringGrid; out Error: ansistring): boolean;

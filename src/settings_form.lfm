@@ -11,6 +11,7 @@ object SettingsForm: TSettingsForm
   Constraints.MinHeight = 630
   Constraints.MinWidth = 485
   OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
   object Panel1: TPanel
@@ -86,7 +87,7 @@ object SettingsForm: TSettingsForm
     Height = 553
     Top = 42
     Width = 485
-    PageIndex = 2
+    PageIndex = 1
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabOrder = 1
     object SchedulePage: TPage
@@ -940,6 +941,68 @@ object SettingsForm: TSettingsForm
       end
     end
     object MiscPage: TPage
+      OnBeforeShow = MiscPageBeforeShow
+      object Label11: TLabel
+        AnchorSideLeft.Control = MiscPage
+        Left = 10
+        Height = 24
+        Top = 8
+        Width = 160
+        AutoSize = False
+        BorderSpacing.Left = 10
+        Caption = 'Date Format:'
+        Font.Height = -15
+        Font.Name = 'Fira Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object DateFormatCombo: TComboBox
+        AnchorSideLeft.Control = MiscPage
+        AnchorSideTop.Control = Label11
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = DateFormatEdit
+        Left = 10
+        Height = 32
+        Top = 42
+        Width = 236
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Left = 10
+        BorderSpacing.Top = 10
+        BorderSpacing.Right = 10
+        Font.Height = -15
+        Font.Name = 'Fira Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 27
+        Items.Strings = (
+          'Custom'
+          '2019-8-11 20:25:43'
+          '2019-8-11 08:25 PM'
+          '11 Aug 2019 08:25 PM'
+          '2019 Aug 11, 08:25 PM'
+          'Sun 11 Aug 2019 08:25:43 PM CDT'
+        )
+        OnChange = DateFormatComboChange
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object DateFormatEdit: TEdit
+        AnchorSideTop.Control = Label11
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = MiscPage
+        AnchorSideRight.Side = asrBottom
+        Left = 256
+        Height = 32
+        Top = 42
+        Width = 219
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        BorderSpacing.Top = 10
+        BorderSpacing.Right = 10
+        Enabled = False
+        TabOrder = 1
+      end
     end
     object DatasetPage: TPage
       object Panel4: TPanel
