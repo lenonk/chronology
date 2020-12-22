@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
-  Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, create_form, LCLType,
-  FileUtil, about_form, settings_form, JSonTools, ChronoUtility, StrUtils, DateUtils;
+  Buttons, ExtCtrls, Types, Process, create_form, LCLType,
+  FileUtil, about_form, settings_form, JSonTools, ChronoUtility, DateUtils;
 
 type
 

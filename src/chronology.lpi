@@ -51,7 +51,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="9">
+    <Units Count="10">
       <Unit0>
         <Filename Value="chronology.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -108,6 +108,10 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ChronoScheduler"/>
       </Unit8>
+      <Unit9>
+        <Filename Value="../CMakeLists.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -120,6 +124,11 @@
       <Libraries Value="/usr/lib/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <Optimizations>
+        <OptimizationLevel Value="0"/>
+      </Optimizations>
+    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>

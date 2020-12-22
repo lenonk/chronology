@@ -5,8 +5,7 @@ unit ChronoUtility;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, Grids, StdCtrls,
-  Buttons, ExtCtrls, qt5, qtwidgets, qtobjects, Types, Process, LCLType,
+  SysUtils, Forms, Grids, Buttons, qt5, qtwidgets, Types, Process, LCLType,
   FileUtil, DateUtils, JsonTools, LazLoggerBase, StrUtils;
 
 type
