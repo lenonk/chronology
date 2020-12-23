@@ -24,7 +24,7 @@ I see Major Refactoring in my future.<br>
 As it's both bad and ugly, I'll reiterate that I'm system calling the ZFS CLI.
 
 # Building and Installation
-You'll need to install Lazarus with the qt5 bindings.  On Arch: 'pacman -Ss lazarus-qt5'<br>
+You'll need to install Lazarus with the qt5 bindings.  On Arch: 'pacman -Sy lazarus-qt5'<br>
 Clone the repository<br>
 cd chronology (or whatever you checked out out as)<br>
 ./build.sh<br>
