@@ -19,7 +19,6 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="290"/>
         <CursorPos Y="326"/>
@@ -33,6 +32,7 @@
         <ComponentName Value="CreateForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="78"/>
         <CursorPos X="48" Y="135"/>
@@ -72,7 +72,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="14"/>
-        <UsageCount Value="195"/>
+        <UsageCount Value="201"/>
       </Unit5>
       <Unit6>
         <Filename Value="chronoutility.pas"/>
@@ -80,7 +80,7 @@
         <UnitName Value="ChronoUtility"/>
         <TopLine Value="200"/>
         <CursorPos Y="207"/>
-        <UsageCount Value="195"/>
+        <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -91,7 +91,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="61" Y="38"/>
-        <UsageCount Value="194"/>
+        <UsageCount Value="200"/>
       </Unit7>
       <Unit8>
         <Filename Value="chronoscheduler.pas"/>
@@ -100,14 +100,14 @@
         <EditorIndex Value="5"/>
         <TopLine Value="116"/>
         <CursorPos Y="112"/>
-        <UsageCount Value="171"/>
+        <UsageCount Value="177"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="../CMakeLists.txt"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="74"/>
+        <UsageCount Value="80"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit9>
       <Unit10>
@@ -116,7 +116,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="645"/>
         <CursorPos Y="670"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="21"/>
       </Unit10>
       <Unit11>
         <Filename Value="/usr/lib/lazarus/lcl/forms.pp"/>
@@ -124,14 +124,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1479"/>
         <CursorPos X="14" Y="1500"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit11>
       <Unit12>
         <Filename Value="/usr/lib/lazarus/lcl/include/application.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="210"/>
         <CursorPos X="23" Y="233"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit12>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
