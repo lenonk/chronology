@@ -216,7 +216,8 @@ begin
   Date := FormatDateTime(ConfigDateFormat, Now);
   DateFormatCombo.Additem(Date, TDateFormat.Create(ConfigDateFormat));
 
-  if GetConfigLocation(ConfigDir, ConfigFile, Error) then begin
+  if (GetConfigLocation(ConfigDir, ConfigFile, Error)) and
+     (FileExists(ConfigDir + ConfigFile)) then begin
     Config := TJsonNode.Create();
     Config.LoadFromFile(ConfigDir + ConfigFile);
 

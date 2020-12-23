@@ -331,10 +331,12 @@ begin
       end;
     end;
 
-    SSTimeStamps.Sort();
-    SnapshotTime := UnixToDateTime(StrToInt(SSTimeStamps[0]));
-    OldestSnapshotData.Caption := FormatDateTime('mmmm d, yyyy hh:nn AM/PM', SnapshotTime);
-    SSTimeStamps.Destroy();
+    if (SStimeStamps.Count > 0) then begin
+      SSTimeStamps.Sort();
+      SnapshotTime := UnixToDateTime(StrToInt(SSTimeStamps[0]));
+      OldestSnapshotData.Caption := FormatDateTime('mmmm d, yyyy hh:nn AM/PM', SnapshotTime);
+      SSTimeStamps.Destroy();
+    end;
   end;
 
   Config.Free();

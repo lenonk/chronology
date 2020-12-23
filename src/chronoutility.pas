@@ -268,7 +268,8 @@ var
   Output: ansistring;
   a, b: TStringArray;
 begin
-  for i := Grid.RowCount - 1 downto 1 do Grid.DeleteRow(i);
+  if Grid.RowCount > 1 then
+    for i := Grid.RowCount - 1 downto 1 do Grid.DeleteRow(i);
 
   if RunCommand('zfs', ['list', '-t', 'filesystem'], Output, [poUsePipes, poStderrToOutPut]) then
   begin
@@ -319,7 +320,8 @@ begin
   if a[0] = 'manual' then Idx := 1
   else Idx := 2;
 
-  if GetConfigLocation(ConfigDir, ConfigFile, Format) then begin
+  if (GetConfigLocation(ConfigDir, ConfigFile, Format)) and
+     (FileExists(ConfigDir + ConfigFile)) then begin
     Config := TJsonNode.Create();
     Config.LoadFromFile(ConfigDir + ConfigFile);
 
@@ -339,8 +341,8 @@ var
   Output: ansistring;
   a, b: TStringArray;
 begin
-  for i := Grid.RowCount - 1 downto 1 do
-    Grid.DeleteRow(i);
+  if Grid.RowCount > 1 then
+    for i := Grid.RowCount - 1 downto 1 do Grid.DeleteRow(i);
 
   if RunCommand('zfs', ['list', '-t', 'snapshot'], Output, [poUsePipes, poStderrToOutPut]) then
   begin

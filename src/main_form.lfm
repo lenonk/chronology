@@ -2,10 +2,10 @@ object MainForm: TMainForm
   Left = 3749
   Height = 401
   Top = 55
-  Width = 618
+  Width = 693
   Caption = 'Chronology'
-  ClientHeight = 351
-  ClientWidth = 378
+  ClientHeight = 401
+  ClientWidth = 693
   Constraints.MinHeight = 290
   Constraints.MinWidth = 560
   Icon.Data = {
@@ -2127,7 +2127,6 @@ object MainForm: TMainForm
   }
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '2.0.10.0'
   object Panel3: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
@@ -2136,11 +2135,11 @@ object MainForm: TMainForm
     Left = 0
     Height = 66
     Top = 0
-    Width = 618
+    Width = 693
     Anchors = [akTop, akLeft, akRight]
     BevelOuter = bvNone
     ClientHeight = 66
-    ClientWidth = 618
+    ClientWidth = 693
     TabOrder = 2
     object CreateButton: TBitBtn
       Left = 5
@@ -2203,13 +2202,13 @@ object MainForm: TMainForm
     Left = 5
     Height = 238
     Top = 71
-    Width = 608
+    Width = 683
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 5
     BevelOuter = bvNone
     Caption = 'Panel1'
     ClientHeight = 238
-    ClientWidth = 608
+    ClientWidth = 683
     TabOrder = 0
     object SnapshotList: TStringGrid
       AnchorSideRight.Control = Panel1
@@ -2219,7 +2218,7 @@ object MainForm: TMainForm
       Left = 0
       Height = 238
       Top = 0
-      Width = 608
+      Width = 683
       Align = alClient
       AlternateColor = clBackground
       AutoEdit = False
@@ -2238,7 +2237,7 @@ object MainForm: TMainForm
         item
           ReadOnly = True
           Title.Caption = 'Date'
-          Width = 120
+          Width = 200
         end      
         item
           ReadOnly = True
@@ -2269,7 +2268,7 @@ object MainForm: TMainForm
       ColWidths = (
         236
         100
-        120
+        200
         75
         75
         0
@@ -2286,19 +2285,19 @@ object MainForm: TMainForm
     Left = 5
     Height = 82
     Top = 314
-    Width = 608
+    Width = 683
     Anchors = [akLeft, akRight, akBottom]
     BorderSpacing.Around = 5
     BevelOuter = bvNone
     ClientHeight = 82
-    ClientWidth = 608
+    ClientWidth = 683
     TabOrder = 1
     object Panel4: TPanel
       AnchorSideRight.Control = Panel2
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = Panel2
       AnchorSideBottom.Side = asrBottom
-      Left = 526
+      Left = 601
       Height = 78
       Top = 4
       Width = 82
@@ -2309,7 +2308,7 @@ object MainForm: TMainForm
       AnchorSideRight.Control = Panel4
       AnchorSideBottom.Control = Panel2
       AnchorSideBottom.Side = asrBottom
-      Left = 438
+      Left = 513
       Height = 78
       Top = 4
       Width = 82
@@ -2942,7 +2941,7 @@ object MainForm: TMainForm
   object MenuButton: TBitBtn
     AnchorSideRight.Control = Panel3
     AnchorSideRight.Side = asrBottom
-    Left = 543
+    Left = 618
     Height = 58
     Top = 4
     Width = 70
