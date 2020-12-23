@@ -178,9 +178,11 @@ end;
 procedure TSettingsForm.MiscPageBeforeShow(ASender: TObject; ANewPage: TPage;
   ANewIndex: Integer);
 var
-  Date, DateFormat: ansistring;
+  Date, ConfigDateFormat, Error: ansistring;
   Idx: Integer;
   obj: TObject;
+  Config: TJsonNode;
+  DFormat: TDateFormat;
 begin
   for Idx := 1 to DateFormatCombo.Items.Count - 1 do begin
     // Yes, I know this leaks memory the last time you open the page.  No, I don't care.  It will
@@ -191,32 +193,57 @@ begin
 
   DateFormatCombo.Clear();
 
-  DateFormat := '';
+  ConfigDateFormat := '';
   DateFormatCombo.AddItem('Custom', nil);
 
-  DateFormat := 'yyyy-m-d h:nn:ss';
-  Date := FormatDateTime(DateFormat, Now);
-  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+  ConfigDateFormat := 'yyyy-m-d h:nn:ss';
+  Date := FormatDateTime(ConfigDateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(ConfigDateFormat));
 
-  DateFormat := 'yyyy-m-d h:nn:ss AM/PM';
-  Date := FormatDateTime(DateFormat, Now);
-  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+  ConfigDateFormat := 'yyyy-m-d h:nn:ss AM/PM';
+  Date := FormatDateTime(ConfigDateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(ConfigDateFormat));
 
-  DateFormat := 'd mmm yyyy hh:nn:ss AM/PM';
-  Date := FormatDateTime(DateFormat, Now);
-  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+  ConfigDateFormat := 'd mmm yyyy hh:nn:ss AM/PM';
+  Date := FormatDateTime(ConfigDateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(ConfigDateFormat));
 
-  DateFormat := 'yyyy mmm d, hh:nn:ss AM/PM';
-  Date := FormatDateTime(DateFormat, Now);
-  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+  ConfigDateFormat := 'yyyy mmm d, hh:nn:ss AM/PM';
+  Date := FormatDateTime(ConfigDateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(ConfigDateFormat));
 
-  DateFormat := 'ddd d mmm yyyy hh:nn:ss AM/PM';
-  Date := FormatDateTime(DateFormat, Now);
-  DateFormatCombo.Additem(Date, TDateFormat.Create(DateFormat));
+  ConfigDateFormat := 'ddd d mmm yyyy hh:nn:ss AM/PM';
+  Date := FormatDateTime(ConfigDateFormat, Now);
+  DateFormatCombo.Additem(Date, TDateFormat.Create(ConfigDateFormat));
 
-  // TODO: Find format in config file and update combo to proper item
-  DateFormatCombo.ItemIndex := 1;
-  DateFormatCombo.OnChange(ASender);
+  if GetConfigLocation(ConfigDir, ConfigFile, Error) then begin
+    Config := TJsonNode.Create();
+    Config.LoadFromFile(ConfigDir + ConfigFile);
+
+    if Config.Find('date_time_format') <> nil then begin
+      ConfigDateFormat := Config.Find('date_time_format').Value.DeQuotedString('"');
+      for Idx := 0 to DateFormatCombo.Items.Count -1 do begin
+        DFormat := (DateFormatCombo.Items.Objects[Idx] as TDateFormat);
+        if (DFormat <> nil) and (DFormat.Format = ConfigDateFormat) then begin
+          DateFormatCombo.ItemIndex := Idx;
+          DateFormatCombo.OnChange(ASender);
+          break;
+        end;
+      end;
+      if DateFormatEdit.Text = '' then begin
+        // There is a date format, but it doesn't match any of the options.  Must be custom
+        DateFormatEdit.Text := ConfigDateFormat;
+        DateFormatCombo.ItemIndex := 0;
+        DateFormatCombo.OnChange(ASender);
+        DateFormatEdit.Enabled := true;
+      end;
+    end;
+  end;
+
+  if DateFormatEdit.Text = '' then begin
+    DateFormatCombo.ItemIndex := 1;
+    DateFormatCombo.OnChange(ASender);
+  end;
 end;
 
 procedure TSettingsForm.MonthlyCheckboxChange(Sender: TObject);

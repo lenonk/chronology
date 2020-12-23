@@ -55,10 +55,11 @@
         <ComponentName Value="SettingsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="295"/>
-        <CursorPos X="55" Y="323"/>
-        <FoldState Value=" T3jH045 pjEjW03126/"/>
+        <TopLine Value="210"/>
+        <CursorPos X="24" Y="233"/>
+        <FoldState Value=" T3jP0m31312121"/>
         <UsageCount Value="205"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -71,16 +72,15 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="14"/>
-        <UsageCount Value="185"/>
+        <UsageCount Value="192"/>
       </Unit5>
       <Unit6>
         <Filename Value="chronoutility.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ChronoUtility"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="298"/>
-        <CursorPos X="42" Y="326"/>
-        <UsageCount Value="185"/>
+        <CursorPos Y="322"/>
+        <UsageCount Value="192"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -91,7 +91,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="61" Y="38"/>
-        <UsageCount Value="184"/>
+        <UsageCount Value="191"/>
       </Unit7>
       <Unit8>
         <Filename Value="chronoscheduler.pas"/>
@@ -100,14 +100,14 @@
         <EditorIndex Value="5"/>
         <TopLine Value="116"/>
         <CursorPos Y="112"/>
-        <UsageCount Value="161"/>
+        <UsageCount Value="168"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="../CMakeLists.txt"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="71"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit9>
       <Unit10>
@@ -116,7 +116,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="645"/>
         <CursorPos Y="670"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit10>
       <Unit11>
         <Filename Value="/usr/lib/lazarus/lcl/forms.pp"/>
@@ -124,136 +124,136 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1479"/>
         <CursorPos X="14" Y="1500"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit11>
       <Unit12>
         <Filename Value="/usr/lib/lazarus/lcl/include/application.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="210"/>
         <CursorPos X="23" Y="233"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit12>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="186" Column="34" TopLine="161"/>
+        <Filename Value="main_form.pas"/>
+        <Caret Line="67" Column="26" TopLine="79"/>
       </Position1>
       <Position2>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="92" Column="27" TopLine="69"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="334" Column="75" TopLine="294"/>
       </Position2>
       <Position3>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="188" Column="38" TopLine="179"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="323" Column="14" TopLine="300"/>
       </Position3>
       <Position4>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="336" Column="89" TopLine="333"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="326" Column="40" TopLine="291"/>
       </Position4>
       <Position5>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="331" Column="22" TopLine="313"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="322" TopLine="298"/>
       </Position5>
       <Position6>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="337" Column="6" TopLine="95"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="323" TopLine="298"/>
       </Position6>
       <Position7>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="218" Column="36" TopLine="172"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="324" TopLine="298"/>
       </Position7>
       <Position8>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="341" Column="61" TopLine="207"/>
+        <Filename Value="chronoutility.pas"/>
+        <Caret Line="326" Column="42" TopLine="298"/>
       </Position8>
       <Position9>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="353" TopLine="290"/>
+        <Caret Line="228" Column="10" TopLine="187"/>
       </Position9>
       <Position10>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="184" TopLine="96"/>
+        <Caret Line="221" Column="19" TopLine="195"/>
       </Position10>
       <Position11>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="180" Column="110" TopLine="112"/>
+        <Caret Line="226" Column="62" TopLine="199"/>
       </Position11>
       <Position12>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="181" Column="6" TopLine="112"/>
+        <Caret Line="233" Column="13" TopLine="217"/>
       </Position12>
       <Position13>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="183" Column="9" TopLine="162"/>
+        <Caret Line="227" TopLine="217"/>
       </Position13>
       <Position14>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="181" TopLine="162"/>
+        <Caret Line="229" TopLine="217"/>
       </Position14>
       <Position15>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="180" Column="23" TopLine="162"/>
+        <Caret Line="232" TopLine="217"/>
       </Position15>
       <Position16>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="182" Column="49" TopLine="162"/>
+        <Caret Line="227" Column="69" TopLine="216"/>
       </Position16>
       <Position17>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="331" Column="14" TopLine="297"/>
+        <Caret Line="93" Column="7" TopLine="69"/>
       </Position17>
       <Position18>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="318" Column="34" TopLine="299"/>
+        <Caret Line="227" Column="69" TopLine="217"/>
       </Position18>
       <Position19>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="326" TopLine="299"/>
+        <Caret Line="93" Column="7" TopLine="69"/>
       </Position19>
       <Position20>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="329" Column="14" TopLine="290"/>
+        <Caret Line="107" Column="3" TopLine="69"/>
       </Position20>
       <Position21>
         <Filename Value="settings_form.pas"/>
-        <Caret Line="322" TopLine="300"/>
+        <Caret Line="227" Column="66" TopLine="205"/>
       </Position21>
       <Position22>
-        <Filename Value="main_form.pas"/>
-        <Caret Line="331" TopLine="249"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="230" Column="17" TopLine="196"/>
       </Position22>
       <Position23>
-        <Filename Value="main_form.pas"/>
-        <Caret Line="67" Column="26" TopLine="79"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="218" TopLine="172"/>
       </Position23>
       <Position24>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="334" Column="75" TopLine="294"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="197" TopLine="172"/>
       </Position24>
       <Position25>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="323" Column="14" TopLine="300"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="209" Column="83" TopLine="185"/>
       </Position25>
       <Position26>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="326" Column="40" TopLine="291"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="197" Column="3" TopLine="172"/>
       </Position26>
       <Position27>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="322" TopLine="298"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="218" TopLine="178"/>
       </Position27>
       <Position28>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="323" TopLine="298"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="210" TopLine="178"/>
       </Position28>
       <Position29>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="324" TopLine="298"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="236" Column="41" TopLine="203"/>
       </Position29>
       <Position30>
-        <Filename Value="chronoutility.pas"/>
-        <Caret Line="326" TopLine="298"/>
+        <Filename Value="settings_form.pas"/>
+        <Caret Line="230" Column="9" TopLine="212"/>
       </Position30>
     </JumpHistory>
     <RunParams>
@@ -264,15 +264,6 @@
     </RunParams>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="chronoutility.pas"/>
-        <Line Value="322"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="SSTimeStamps[0]"/>
