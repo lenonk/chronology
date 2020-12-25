@@ -51,7 +51,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="9">
       <Unit0>
         <Filename Value="chronology.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -64,54 +64,50 @@
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
-        <Filename Value="create_form.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="CreateForm"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit2>
-      <Unit3>
         <Filename Value="about_form.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="AboutForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit3>
-      <Unit4>
+      </Unit2>
+      <Unit3>
         <Filename Value="settings_form.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="SettingsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit4>
-      <Unit5>
+      </Unit3>
+      <Unit4>
         <Filename Value="license_form.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="LicenseForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit5>
-      <Unit6>
+      </Unit4>
+      <Unit5>
         <Filename Value="chronoutility.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ChronoUtility"/>
-      </Unit6>
-      <Unit7>
+      </Unit5>
+      <Unit6>
         <Filename Value="credits_form.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="CreditsForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit7>
-      <Unit8>
+      </Unit6>
+      <Unit7>
         <Filename Value="chronoscheduler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ChronoScheduler"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="../CMakeLists.txt"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="create_form.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit9>
+        <ComponentName Value="CreateForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit8>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -4,8 +4,8 @@ object SettingsForm: TSettingsForm
   Top = 488
   Width = 485
   Caption = 'Chronology Settings'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 630
+  ClientWidth = 485
   Constraints.MaxHeight = 630
   Constraints.MaxWidth = 485
   Constraints.MinHeight = 630
@@ -14,7 +14,6 @@ object SettingsForm: TSettingsForm
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '2.0.10.0'
   object Panel1: TPanel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -88,16 +87,18 @@ object SettingsForm: TSettingsForm
     Height = 553
     Top = 42
     Width = 485
-    PageIndex = 0
+    PageIndex = 1
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabOrder = 1
     object SchedulePage: TPage
       object Label1: TLabel
-        Left = 16
+        AnchorSideLeft.Control = SchedulePage
+        Left = 10
         Height = 32
         Top = 16
         Width = 274
         AutoSize = False
+        BorderSpacing.Left = 10
         Caption = 'Select Snapshot Levels:'
         Font.Height = -21
         Font.Name = 'Fira Sans'
@@ -942,7 +943,6 @@ object SettingsForm: TSettingsForm
       end
     end
     object MiscPage: TPage
-      OnBeforeShow = MiscPageBeforeShow
       object Label11: TLabel
         AnchorSideLeft.Control = MiscPage
         Left = 10
@@ -1584,11 +1584,13 @@ object SettingsForm: TSettingsForm
         end
       end
       object Label10: TLabel
-        Left = 16
+        AnchorSideLeft.Control = DatasetPage
+        Left = 10
         Height = 32
         Top = 16
         Width = 368
         AutoSize = False
+        BorderSpacing.Left = 10
         Caption = 'Select Datasets to Snapshot:'
         Font.Height = -21
         Font.Name = 'Fira Sans'
@@ -1723,7 +1725,6 @@ object SettingsForm: TSettingsForm
     end
   end
   object SettingsOkButton: TBitBtn
-    AnchorSideLeft.Control = Owner
     AnchorSideLeft.Side = asrCenter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrCenter
@@ -1733,9 +1734,8 @@ object SettingsForm: TSettingsForm
     Height = 25
     Top = 595
     Width = 75
-    Anchors = [akLeft, akBottom]
+    Anchors = [akBottom]
     BorderSpacing.Bottom = 10
-    Default = True
     DefaultCaption = True
     Kind = bkOK
     ModalResult = 1

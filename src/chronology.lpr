@@ -98,9 +98,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main_form, create_form, SysUtils, LCLType, lazcontrols,
+  Forms, main_form, SysUtils, LCLType, lazcontrols,
   about_form, settings_form, license_form, ChronoUtility, credits_form,
-  ChronoScheduler, DateUtils, LazLogger
+  ChronoScheduler, DateUtils, LazLogger, create_form
   { you can add units after this };
 
 {$R *.res}
@@ -133,11 +133,11 @@ begin
   end;
 
   Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(TCreateForm, CreateForm);
   Application.CreateForm(TAboutForm, AboutForm);
   Application.CreateForm(TSettingsForm, SettingsForm);
   Application.CreateForm(TLicenseForm, LicenseForm);
   Application.CreateForm(TCreditsForm, CreditsForm);
+  Application.CreateForm(TCreateForm, CreateForm);
   Application.Run;
 end.
 {$ENDIF}

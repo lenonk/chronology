@@ -72,8 +72,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure HourlyCheckboxChange(Sender: TObject);
     procedure MiscButtonClick(Sender: TObject);
-    procedure MiscPageBeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
     procedure MonthlyCheckboxChange(Sender: TObject);
     procedure DatasetButtonClick(Sender: TObject);
     procedure ScheduleButtonClick(Sender: TObject);
@@ -81,6 +79,7 @@ type
 
   private
     procedure UpdateShieldIcon();
+    procedure UpdateMiscPage();
 
   public
     class var
@@ -175,8 +174,7 @@ begin
   SettingsNotebook.PageIndex := 1;
 end;
 
-procedure TSettingsForm.MiscPageBeforeShow(ASender: TObject; ANewPage: TPage;
-  ANewIndex: Integer);
+procedure TSettingsForm.UpdateMiscPage();
 var
   Date, ConfigDateFormat, Error: ansistring;
   Idx: Integer;
@@ -227,7 +225,7 @@ begin
         DFormat := (DateFormatCombo.Items.Objects[Idx] as TDateFormat);
         if (DFormat <> nil) and (DFormat.Format = ConfigDateFormat) then begin
           DateFormatCombo.ItemIndex := Idx;
-          DateFormatCombo.OnChange(ASender);
+          DateFormatCombo.OnChange(Self);
           break;
         end;
       end;
@@ -235,7 +233,7 @@ begin
         // There is a date format, but it doesn't match any of the options.  Must be custom
         DateFormatEdit.Text := ConfigDateFormat;
         DateFormatCombo.ItemIndex := 0;
-        DateFormatCombo.OnChange(ASender);
+        DateFormatCombo.OnChange(Self);
         DateFormatEdit.Enabled := true;
       end;
     end;
@@ -243,7 +241,7 @@ begin
 
   if DateFormatEdit.Text = '' then begin
     DateFormatCombo.ItemIndex := 1;
-    DateFormatCombo.OnChange(ASender);
+    DateFormatCombo.OnChange(Self);
   end;
 end;
 
@@ -481,6 +479,7 @@ begin
 
   Config.Free();
   UpdateShieldIcon();
+  UpdateMiscPage();
 end;
 
 procedure TSettingsForm.HourlyCheckboxChange(Sender: TObject);

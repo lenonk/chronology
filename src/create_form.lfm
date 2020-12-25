@@ -1,161 +1,134 @@
 object CreateForm: TCreateForm
-  Left = 3749
-  Height = 271
-  Top = 488
-  Width = 541
+  Left = 0
+  Height = 381
+  Top = 0
+  Width = 485
   BorderIcons = []
   BorderStyle = bsSizeToolWin
   Caption = 'Chronology - Create a Snapshot'
-  ClientHeight = 271
-  ClientWidth = 541
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
+  ClientHeight = 381
+  ClientWidth = 485
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '2.0.10.0'
-  object GroupBox1: TGroupBox
+  object Label1: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Panel1
     AnchorSideBottom.Control = Owner
-    AnchorSideBottom.Side = asrBottom
-    Left = 0
-    Height = 271
-    Top = 0
-    Width = 221
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    Caption = 'Choose a Filesystem:'
-    ClientHeight = 253
-    ClientWidth = 203
-    TabOrder = 0
-    object FileSystemListBox: TListBox
-      Left = 0
-      Height = 250
-      Top = 0
-      Width = 221
-      Align = alClient
-      ItemHeight = 0
-      OnSelectionChange = FileSystemListBoxSelectionChange
-      TabOrder = 0
-    end
+    Left = 10
+    Height = 32
+    Top = 19
+    Width = 406
+    Anchors = [akLeft]
+    AutoSize = False
+    BorderSpacing.Left = 10
+    Caption = 'Select a Dataset to Snapshot:'
+    Font.Height = -21
+    Font.Name = 'Fira Sans'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
   end
-  object Panel1: TPanel
-    AnchorSideTop.Control = Owner
+  object DatasetGrid: TStringGrid
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 10
+    Height = 286
+    Top = 51
+    Width = 465
+    AlternateColor = clBackground
+    Anchors = [akTop, akLeft, akRight]
+    AutoEdit = False
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    ColCount = 6
+    Columns = <    
+      item
+        Title.Caption = 'Title'
+        Visible = False
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'Filesystem'
+        Width = 167
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'Used'
+        Width = 50
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'Avail'
+        Width = 50
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'Refer'
+        Width = 50
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'Mountpoint'
+        Width = 146
+      end>
+    ExtendedSelect = False
+    FixedColor = clBackground
+    FixedCols = 0
+    Options = [goColSizing, goRowSelect, goDblClickAutoSize, goSmoothScroll, goFixedColSizing]
+    TabOrder = 0
+  end
+  object CancelButton: TBitBtn
+    AnchorSideRight.Control = Label2
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 221
-    Height = 271
-    Top = 0
-    Width = 320
-    Anchors = [akTop, akRight, akBottom]
-    BevelOuter = bvNone
-    ClientHeight = 271
-    ClientWidth = 320
+    Left = 163
+    Height = 25
+    Top = 346
+    Width = 75
+    Anchors = [akRight, akBottom]
+    BorderSpacing.Right = 5
+    BorderSpacing.Bottom = 10
+    Cancel = True
+    DefaultCaption = True
+    Kind = bkCancel
+    ModalResult = 2
+    OnClick = CancelButtonClick
     TabOrder = 1
-    object CreateButton: TBitBtn
-      AnchorSideLeft.Control = Panel1
-      AnchorSideRight.Control = Panel1
-      AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = Panel1
-      AnchorSideBottom.Side = asrBottom
-      Left = 243
-      Height = 25
-      Top = 243
-      Width = 75
-      Anchors = [akRight, akBottom]
-      BorderSpacing.Left = 5
-      BorderSpacing.Right = 2
-      BorderSpacing.Bottom = 3
-      Caption = 'Create'
-      GlyphShowMode = gsmSystem
-      Kind = bkOK
-      OnClick = CreateButtonClick
-      TabOrder = 0
-    end
-    object UsedLabel: TLabel
-      Left = 16
-      Height = 17
-      Top = 18
-      Width = 36
-      Caption = 'Used: '
-      ParentColor = False
-    end
-    object UsedData: TLabel
-      Left = 56
-      Height = 17
-      Top = 18
-      Width = 29
-      Caption = '350G'
-      ParentColor = False
-    end
-    object AvailLabel: TLabel
-      Left = 16
-      Height = 17
-      Top = 40
-      Width = 32
-      Caption = 'Avail:'
-      ParentColor = False
-    end
-    object AvailData: TLabel
-      Left = 56
-      Height = 17
-      Top = 40
-      Width = 29
-      Caption = '999G'
-      ParentColor = False
-    end
-    object ReferLabel: TLabel
-      Left = 16
-      Height = 17
-      Top = 64
-      Width = 35
-      Caption = 'Refer:'
-      ParentColor = False
-    end
-    object ReferData: TLabel
-      Left = 56
-      Height = 17
-      Top = 64
-      Width = 28
-      Caption = '343G'
-      ParentColor = False
-    end
-    object MountPointLabel: TLabel
-      Left = 16
-      Height = 17
-      Top = 88
-      Width = 72
-      Caption = 'MountPoint:'
-      ParentColor = False
-    end
-    object MountPointData: TLabel
-      Left = 16
-      Height = 17
-      Top = 104
-      Width = 154
-      Caption = '/home/lenon/Documents'
-      ParentColor = False
-    end
-    object CancelButton: TBitBtn
-      AnchorSideRight.Control = CreateButton
-      AnchorSideBottom.Control = Panel1
-      AnchorSideBottom.Side = asrBottom
-      Left = 163
-      Height = 25
-      Top = 243
-      Width = 75
-      Anchors = [akRight, akBottom]
-      BorderSpacing.Left = 5
-      BorderSpacing.Right = 2
-      BorderSpacing.Bottom = 3
-      Cancel = True
-      DefaultCaption = True
-      Kind = bkCancel
-      ModalResult = 2
-      OnClick = CancelButtonClick
-      TabOrder = 1
-    end
+  end
+  object CreateButton: TBitBtn
+    AnchorSideLeft.Control = Label2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 248
+    Height = 25
+    Top = 346
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 5
+    BorderSpacing.Bottom = 10
+    Caption = 'Create'
+    Default = True
+    Kind = bkOK
+    ModalResult = 1
+    OnClick = CreateButtonClick
+    TabOrder = 2
+  end
+  object Label2: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 242
+    Height = 1
+    Top = 370
+    Width = 1
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 10
+    ParentColor = False
   end
 end
