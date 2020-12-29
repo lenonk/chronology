@@ -2320,7 +2320,7 @@ object MainForm: TMainForm
       object NumSnapShotsLabel: TLabel
         Left = 35
         Height = 32
-        Top = 8
+        Top = 14
         Width = 12
         AutoSize = False
         Caption = '0'
@@ -2336,7 +2336,7 @@ object MainForm: TMainForm
         AnchorSideRight.Side = asrBottom
         Left = 1
         Height = 21
-        Top = 35
+        Top = 41
         Width = 80
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight]

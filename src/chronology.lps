@@ -7,9 +7,9 @@
       <Unit0>
         <Filename Value="chronology.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="91"/>
-        <CursorPos X="49" Y="140"/>
+        <CursorPos X="8" Y="126"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -30,10 +30,12 @@
         <ComponentName Value="AboutForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="21"/>
         <CursorPos X="33" Y="63"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="settings_form.pas"/>
@@ -42,8 +44,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="374"/>
-        <CursorPos X="3" Y="384"/>
+        <TopLine Value="83"/>
+        <CursorPos X="32" Y="38"/>
+        <FoldState Value=" T3jG045 pjfkG032]9BjK0D6]9Ik203j"/>
         <UsageCount Value="205"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -93,16 +96,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="27"/>
-        <CursorPos X="49" Y="41"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="22"/>
+        <CursorPos Y="79"/>
+        <UsageCount Value="166"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="../CMakeLists.txt"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="63"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit9>
       <Unit10>
@@ -111,10 +114,10 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="645"/>
         <CursorPos Y="670"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="4"/>
       </Unit10>
     </Units>
-    <JumpHistory Count="26" HistoryIndex="25">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="settings_form.pas"/>
         <Caret Line="220" Column="43" TopLine="195"/>
@@ -211,14 +214,6 @@
         <Filename Value="settings_form.pas"/>
         <Caret Line="418" TopLine="372"/>
       </Position24>
-      <Position25>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="482" Column="20" TopLine="438"/>
-      </Position25>
-      <Position26>
-        <Filename Value="settings_form.pas"/>
-        <Caret Line="23"/>
-      </Position26>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

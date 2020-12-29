@@ -1730,7 +1730,7 @@ object SettingsForm: TSettingsForm
     AnchorSideRight.Side = asrCenter
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 205
+    Left = 330
     Height = 25
     Top = 595
     Width = 75

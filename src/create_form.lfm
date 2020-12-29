@@ -1,22 +1,21 @@
 object CreateForm: TCreateForm
-  Left = 0
-  Height = 381
-  Top = 0
+  Left = 66653
+  Height = 630
+  Top = 2985
   Width = 485
+  Anchors = [akBottom]
   BorderIcons = []
   BorderStyle = bsSizeToolWin
   Caption = 'Chronology - Create a Snapshot'
-  ClientHeight = 381
+  ClientHeight = 630
   ClientWidth = 485
   OnShow = FormShow
   Position = poMainFormCenter
   object Label1: TLabel
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideBottom.Control = Owner
     Left = 10
     Height = 32
-    Top = 19
+    Top = 42
     Width = 406
     Anchors = [akLeft]
     AutoSize = False
@@ -36,7 +35,7 @@ object CreateForm: TCreateForm
     AnchorSideRight.Side = asrBottom
     Left = 10
     Height = 286
-    Top = 51
+    Top = 74
     Width = 465
     AlternateColor = clBackground
     Anchors = [akTop, akLeft, akRight]
@@ -87,7 +86,7 @@ object CreateForm: TCreateForm
     AnchorSideBottom.Side = asrBottom
     Left = 163
     Height = 25
-    Top = 346
+    Top = 595
     Width = 75
     Anchors = [akRight, akBottom]
     BorderSpacing.Right = 5
@@ -101,18 +100,17 @@ object CreateForm: TCreateForm
   end
   object CreateButton: TBitBtn
     AnchorSideLeft.Control = Label2
-    AnchorSideLeft.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 248
+    Left = 247
     Height = 25
-    Top = 346
+    Top = 595
     Width = 75
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 5
     BorderSpacing.Bottom = 10
-    Caption = 'Create'
     Default = True
+    DefaultCaption = True
     Kind = bkOK
     ModalResult = 1
     OnClick = CreateButtonClick
@@ -125,7 +123,7 @@ object CreateForm: TCreateForm
     AnchorSideBottom.Side = asrBottom
     Left = 242
     Height = 1
-    Top = 370
+    Top = 619
     Width = 1
     Anchors = [akLeft, akBottom]
     BorderSpacing.Bottom = 10

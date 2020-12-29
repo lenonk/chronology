@@ -11,7 +11,6 @@ object AboutForm: TAboutForm
   Constraints.MinHeight = 359
   Constraints.MinWidth = 373
   OnShow = FormShow
-  LCLVersion = '2.0.10.0'
   object Image1: TImage
     Left = 122
     Height = 128
@@ -194,9 +193,10 @@ object AboutForm: TAboutForm
   end
   object Label1: TLabel
     Left = 144
-    Height = 20
+    Height = 24
     Top = 152
-    Width = 85
+    Width = 104
+    AutoSize = False
     Caption = 'Chronology'
     Font.Height = -16
     Font.Name = 'Fira Sans'
@@ -206,9 +206,10 @@ object AboutForm: TAboutForm
   end
   object Label2: TLabel
     Left = 167
-    Height = 17
+    Height = 21
     Top = 179
-    Width = 39
+    Width = 55
+    AutoSize = False
     Caption = 'v0.0.1a'
     Font.Height = -13
     Font.Name = 'Fira Sans'
@@ -217,18 +218,20 @@ object AboutForm: TAboutForm
   end
   object Label3: TLabel
     Left = 85
-    Height = 17
+    Height = 28
     Top = 204
-    Width = 202
+    Width = 226
+    AutoSize = False
     Caption = 'ZFS Snapshot Management Utiliity'
     ParentColor = False
   end
   object Label4: TLabel
     Cursor = crHandPoint
     Left = 70
-    Height = 17
+    Height = 24
     Top = 232
-    Width = 230
+    Width = 242
+    AutoSize = False
     Caption = 'https://github.com/lenonk/chronology'
     Font.Height = -13
     Font.Name = 'Fira Sans'
