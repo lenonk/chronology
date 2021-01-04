@@ -16,6 +16,7 @@ type
   TMainForm = class(TForm)
     Label1: TLabel;
     BrowseMenuItem: TMenuItem;
+    Process1: TProcess;
     RestoreMenuItem: TMenuItem;
     DeleteMenuItem: TMenuItem;
     NumSnapShotsLabel: TLabel;
@@ -32,7 +33,6 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
-    DolphinProcess: TProcess;
     MenuButtonMenu: TPopupMenu;
     Panel4: TPanel;
     Panel5: TPanel;
@@ -97,50 +97,10 @@ end;
 
 procedure TMainForm.BrowseButtonClick(Sender: TObject);
 var
-  Output, SSName, UName, DirName: ansistring;
-  GUID: TGUID;
-begin
-  SSName := GetDatasetName();
-  UName := GetEnvironmentVariable('USER');
-  CreateGuid(GUID);
-  DirName := '/run/media/' + UName + '/' + GUID.ToString(True);
-
-  if (not DirectoryExists(DirName)) then
-  begin
-    if (not ForceDirectories(DirName)) then
-    begin
-      ShowMessage('Could not create: ' + DirName);
-      Exit();
-    end;
-  end;
-
-  if (not RunCommand('mount', ['-t', 'zfs', SSName, DirName],
-    Output, [poUsePipes, poStderrToOutput])) then
-  begin
-    if (Length(Output) <> 0) then
-      ShowMessage(Output);
-    Exit();
-  end;
-
-  DolphinProcess.Executable := FindDefaultExecutablePath('dolphin');
-  DolphinProcess.Parameters.Add(DirName);
-  DolphinProcess.Execute();
-
-  if (not RunCommand('umount', [SSName], Output,
-    [poUsePipes, poStderrToOutput])) then
-  begin
-    if (Length(Output) <> 0) then
-      ShowMessage(Output);
-    Exit();
-  end;
-
-  if (DirectoryExists(DirName)) then
-  begin
-    if (not RemoveDir(DirName)) then
-    begin
-      ShowMessage('Could not remove: ' + DirName);
-      Exit();
-    end;
+  Error: string;
+begin;
+  if not BrowseSnapshot(GetDatasetName(), Error) then begin
+    Application.MessageBox(PChar(Error), 'Chronology - Error', MB_ICONERROR + MB_OK);
   end;
 end;
 

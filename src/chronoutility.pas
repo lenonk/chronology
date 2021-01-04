@@ -20,6 +20,7 @@ function CreateSnapshot(Dataset: ansistring; Reason: TSnapshotReason; out Error:
 function DeleteSnapshot(SSName: ansistring; out Error: ansistring): boolean;
 function ListDatasets(var Grid: TStringGrid; out Error: ansistring): boolean;
 function ListSnapshots(var Grid: TStringGrid; out Error: ansistring): boolean;
+function BrowseSnapshot(SSname: string; out Error: string): boolean;
 function GetSnapshotType(ss: ansistring): ansistring;
 function GetSnapshotDate(ss: ansistring): ansistring;
 operator not(n: TJsonNode): Boolean;
@@ -360,6 +361,70 @@ begin
     else Error := 'Listing snapshot failed. Please make sure the ZFS tools are in your path.';
     Result := false;
   end;
+end;
+
+function BrowseSnapshot(SSName: string; out Error: string): boolean;
+var
+  UName, DirName: string;
+  GUID: TGUID;
+  Config: TJsonNode;
+  ConfigDir, ConfigFile: string;
+  BrowserProcess: TProcess;
+begin
+
+  DirName := '/run/media';
+
+  if (GetConfigLocation(ConfigDir, ConfigFile, Error)) and
+     (FileExists(ConfigDir + ConfigFile)) then begin
+    Config := TJsonNode.Create();
+    Config.LoadFromFile(ConfigDir + ConfigFile);
+    if Config.Find('snapshot_mountpoint') <> nil then
+      DirName := Config.Find('snapshot_mountpoint').Value.DeQuotedString('"');
+  end;
+
+  UName := GetEnvironmentVariable('USER');
+  CreateGuid(GUID);
+  DirName := DirName + '/' + UName + '/' + GUID.ToString(True);
+
+  if (not DirectoryExists(DirName)) then
+  begin
+    if (not ForceDirectories(DirName)) then
+    begin
+      Error := 'Could not create: ' + DirName;
+      Exit(False);
+    end;
+  end;
+
+  if (not RunCommand('mount', ['-t', 'zfs', SSName, DirName],
+    Error, [poUsePipes, poStderrToOutput])) then begin
+     try
+       RemoveDir(DirName);
+     finally
+     end;
+     Exit(False);
+  end;
+
+  BrowserProcess := TProcess.Create(nil);
+  BrowserProcess.Executable := FindDefaultExecutablePath('dolphin');
+  BrowserProcess.Options := [poWaitOnExit];
+  BrowserProcess.Parameters.Add(DirName);
+  BrowserProcess.Execute();
+  BrowserProcess.Destroy();
+
+  if (not RunCommand('umount', [SSName], Error,
+    [poUsePipes, poStderrToOutput])) then Exit(False);
+
+
+  if (DirectoryExists(DirName)) then
+  begin
+    if (not RemoveDir(DirName)) then
+    begin
+      Error := 'Could not remove: ' + DirName;
+      Exit(False);
+    end;
+  end;
+
+  Result := True;
 end;
 
 end.

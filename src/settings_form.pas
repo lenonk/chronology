@@ -15,7 +15,9 @@ type
   TSettingsForm = class(TForm)
     DateFormatCombo: TComboBox;
     DateFormatEdit: TEdit;
+    SSMountPointEdit: TEdit;
     Label11: TLabel;
+    Label12: TLabel;
     ScheduleActiveLabel: TLabel;
     DatasetActiveLabel: TLabel;
     CenterLabel: TLabel;
@@ -347,6 +349,7 @@ begin
   end;
 
   Config.Add('date_time_format', DateFormatEdit.Text);
+  Config.Add('snapshot_mountpoint', SSMountPointEdit.Text);
   Config.SaveToFile(ConfigDir + ConfigFile);
   Config.Free();
 end;
@@ -476,6 +479,11 @@ begin
       end;
     end;
   end;
+
+  if Config.Find('snapshot_mountpoint') <> nil then
+    SSMountPointEdit.Text := Config.Find('snapshot_mountpoint').Value.DeQuotedString('"')
+  else
+    SSMountPointEdit.Text := '/run/media';
 
   Config.Free();
   UpdateShieldIcon();

@@ -1004,6 +1004,37 @@ object SettingsForm: TSettingsForm
         Enabled = False
         TabOrder = 1
       end
+      object Label12: TLabel
+        AnchorSideLeft.Control = MiscPage
+        AnchorSideTop.Control = DateFormatCombo
+        AnchorSideTop.Side = asrBottom
+        Left = 10
+        Height = 24
+        Top = 84
+        Width = 230
+        AutoSize = False
+        BorderSpacing.Left = 10
+        BorderSpacing.Top = 10
+        Caption = 'Snapshot Mountpoint:'
+        Font.Height = -15
+        Font.Name = 'Fira Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object SSMountPointEdit: TEdit
+        AnchorSideLeft.Control = MiscPage
+        AnchorSideTop.Control = Label12
+        AnchorSideTop.Side = asrBottom
+        Left = 10
+        Height = 30
+        Top = 118
+        Width = 236
+        BorderSpacing.Left = 10
+        BorderSpacing.Top = 10
+        TabOrder = 2
+        Text = '/run/media'
+      end
     end
     object DatasetPage: TPage
       object Panel4: TPanel
@@ -1730,11 +1761,11 @@ object SettingsForm: TSettingsForm
     AnchorSideRight.Side = asrCenter
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 330
+    Left = 204
     Height = 25
     Top = 595
     Width = 75
-    Anchors = [akBottom]
+    Anchors = [akRight, akBottom]
     BorderSpacing.Bottom = 10
     DefaultCaption = True
     Kind = bkOK
